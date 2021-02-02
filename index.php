@@ -2,6 +2,12 @@
 
 ini_set('display_errors', 1);
 
+
+if(!file_exists('configs/config.php')) {
+    echo "Nenhum arquivo de configuração foi encontrado";
+    exit(0);
+}
+
 require_once 'configs/config.php';
 
 $uri = $_SERVER['REQUEST_URI'];
