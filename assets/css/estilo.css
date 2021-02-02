@@ -1,0 +1,88 @@
+.conteudo-login {
+    position: relative; 
+    z-index: 0;
+}
+
+.div-login {
+    display: block; 
+    width: 100%; 
+    z-index: 1;
+    position: relative;
+}
+
+.fundo-login {
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    padding: 190px 0; 
+    background-image: url(../hus/img/banner/banner.png);
+    position: relative;
+    z-index: 0;
+    display: flex!important;
+    -webkit-box-align: center!important;
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+
+.fundo-login::before {
+    position: absolute;
+    content: "";
+    background-color: #000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .41;
+}
+
+.box-login {
+    background: rgba(0, 0, 0, 0.86); 
+    padding: 85px 80px 85px 98px;
+}
+
+.box-login span {
+    height: 2px;
+    width: 140px;
+    background: #e66543;
+    display: inline-block;
+    margin-bottom: 34px;
+}
+
+.titulo-box {
+    font-family: "Oswald", sans-serif; 
+    font-size: 60px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0;
+    line-height: 80px;
+}
+
+.box-login p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFF;
+    line-height: 30px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.box-login input {
+    border: 1px solid #e5e6e9;
+    border-radius: 0px;
+    height: 48px;
+    padding-left: 18px;
+    font-size: 16px;
+}
+
+.box-login .boxed-btn3 {
+    color: #9f9f9f;
+    background: transparent;
+    border-color: #e66543;
+}
+
+.box-login .boxed-btn3:hover {
+    background: #e66543;
+}
