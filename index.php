@@ -8,6 +8,8 @@ if(!file_exists('configs/config.php')) {
     exit(0);
 }
 
+define("BASE_PATH", $_SERVER['DOCUMENT_ROOT'] . "system_biblioteca/");
+
 require_once 'configs/config.php';
 
 $uri = $_SERVER['REQUEST_URI'];

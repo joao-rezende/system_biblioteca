@@ -52,7 +52,7 @@
                                             <input class="form-control valid" name="senha" id="senha" type="password" placeholder="Senha">
                                         </div>
                                     </div>
-                                    <a href="#" class="boxed-btn3">Acessar</a>
+                                    <a href="<?php echo URL_BASE . "index.php/inicio/inicio"; ?>" class="boxed-btn3">Acessar</a>
                                 </div>
                             </div>
                         </div>
