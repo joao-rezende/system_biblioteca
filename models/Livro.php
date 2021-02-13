@@ -1,12 +1,8 @@
 <?php
-class Usuario{
+class Livro{
 
     //conexão
     private $conn;
-
-    //atributos
-    private $codUsuario;
-    private $cpf;
 
     public function __construct() {
         $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
@@ -16,10 +12,10 @@ class Usuario{
         }
     }
 
-    //Lista todos os usuários
+    //Lista todos os Livros
     public function listar() {
         // Cria Query
-        $sqlCliente = 'SELECT * from Usuario' ;
+        $sqlCliente = 'SELECT * from Livros' ;
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -27,13 +23,13 @@ class Usuario{
         return $resultado;
         
         // Fecha a conexão
-        $this->con->close();
+        $this->conn->close();
 
     }
-    //Lista usuários por CPF
-    public function listarCpf($cpf) {
+    //Lista Livros por código
+    public function listarIsbn($isbn) {
         // Cria Query
-        $sqlCliente = "SELECT * from Usuario WHERE usuCpf='$cpf'";
+        $sqlCliente = "SELECT * from Livros WHERE isbn='$isbn'";
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -41,14 +37,14 @@ class Usuario{
         return $resultado;
         
         // Fecha a conexão
-        $this->con->close();
+        $this->conn->close();
 
     }
 
-    //Listar usuários por código
-    public function listarCod($cod) {
+    //Lista quantidade de um certo Livros 
+    public function listarQtd($isbn) {
         // Cria Query
-        $sqlCliente = "SELECT * from Usuario WHERE codUsuario='$cod'";
+        $sqlCliente = "SELECT quantidade from Livros WHERE isbn='$isbn'";
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -56,15 +52,14 @@ class Usuario{
         return $resultado;
         
         // Fecha a conexão
-        $this->con->close();
+        $this->conn->close();
 
     }
 
-
-    //Inserir usuário
-    public function cadastrar($cpf) {
+    //Buscar um livro pelo título 
+    public function buscarLivro($titulo) {
         // Cria Query
-        $sqlCliente = "INSERT INTO Usuario(Usucpf) values ('$cpf')" ;
+        $sqlCliente = "SELECT * from Livros WHERE titulo='$titulo'";
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -72,15 +67,15 @@ class Usuario{
         return $resultado;
         
         // Fecha a conexão
-        $this->con->close();
+        $this->conn->close();
 
     }
 
-    //Deletar usuário por cpf
-    public function deletarUsuarioCpf($cpf){
-
+    //Inserir Livros
+    public function cadastrar($titulo, $genero, $quantidade, $isbn,$ano, $autores, $codEditora) {
         // Cria Query
-        $sqlCliente = "DELETE * FROM Usuario WHERE cpf='$cpf'";
+        $sqlCliente = "INSERT INTO Livro(titulo, genero,quantidade,isbn,ano,autores,codEditora) 
+                       values ('$titulo', '$genero', '$quantidade', '$isbn','$ano', '$autores', '$codEditora')" ;
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -89,11 +84,11 @@ class Usuario{
 
     }
 
-    //Deletar usuário por cod
-    public function deletarUsuarioCod($cod){
+    //Deletar Editora por cod
+    public function deletarLivro($codLivro){
 
         // Cria Query
-        $sqlCliente = "DELETE * FROM Usuario WHERE codUsuario='$cod'";
+        $sqlCliente = "DELETE * FROM Livros WHERE codLivro='$codLivro'";
 
         $resultado = $this->conn->query($sqlCliente);
         

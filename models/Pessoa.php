@@ -4,10 +4,6 @@ class Pessoa{
     //conexão
     private $conn;
 
-    //atributos
-    private $codUsuario;
-    private $cpf;
-
     public function __construct() {
        $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
         
