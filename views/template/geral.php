@@ -56,7 +56,7 @@
                                         <li><a href="about.html">Empréstimos</a></li>
                                         <li><a href="#">Cadastros</a>
                                             <ul class="submenu">
-                                                    <li><a href="facilites.html">Livros</a></li>
+                                                    <li><a href="<?php echo SITE_URL . "livro"; ?>">Livros</a></li>
                                                     <li><a href="elements.html">Usuários</a></li>
                                                     <li><a href="property.html">Funcionários</a></li>
                                             </ul>
@@ -89,7 +89,9 @@
     <!-- header-end -->
 
     <!-- slider_area_start -->
-    <?php echo $conteudo; ?>
+    <div id="conteudo-template">
+        <?php echo $conteudo; ?>
+    </div>
     <!-- slider_area_end -->
 
     

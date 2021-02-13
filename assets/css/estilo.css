@@ -243,3 +243,39 @@
     font-size: 14px;
     top: -1px;
 }
+
+#conteudo-template {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table .thead-dark th {
+    background-color: #0d101c;
+}
+
+.line-1 {
+    line-height: 1;
+}
+
+#conteudo-template .titulo {
+    font-size: 32px;
+}
+
+.table .col-botao {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+@media(max-width: 767px) {
+    .header-area .main-header-area {
+        padding: 0;
+    }
+
+    .header-area .main-header-area .logo {
+        padding: 10px;
+    }
+
+    .box-login {
+        padding: 50px 25px 70px;
+    }
+}

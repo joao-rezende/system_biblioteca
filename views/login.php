@@ -33,33 +33,35 @@
 
     <body>
 
-        <div class="conteudo-login">
-            <div class="div-login">
-                <div class="fundo-login">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-6 col-md-8">
-                                <div class="box-login">
-                                    <span></span>
-                                    <h3 class="titulo-box">LOGIN</h3>
-                                    <div class="col-xs-12" style="margin-top: 40px; margin-bottom: 20px;">
-                                        <div class="form-group">
-                                            <input class="form-control valid" name="login" id="login" type="text" placeholder="Login">
+        <form action="<?php echo URL_BASE . "index.php/inicio/inicio"; ?>" method="POST">
+            <div class="conteudo-login">
+                <div class="div-login">
+                    <div class="fundo-login">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-xl-6 col-md-8">
+                                    <div class="box-login">
+                                        <span></span>
+                                        <h3 class="titulo-box">LOGIN</h3>
+                                        <div class="col-xs-12" style="margin-top: 40px; margin-bottom: 20px;">
+                                            <div class="form-group">
+                                                <input class="form-control valid" name="login" id="login" type="text" placeholder="Login">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12" style="margin-top: 20px; margin-bottom: 20px;">
-                                        <div class="form-group">
-                                            <input class="form-control valid" name="senha" id="senha" type="password" placeholder="Senha">
+                                        <div class="col-xs-12" style="margin-top: 20px; margin-bottom: 20px;">
+                                            <div class="form-group">
+                                                <input class="form-control valid" name="senha" id="senha" type="password" placeholder="Senha">
+                                            </div>
                                         </div>
+                                        <button type="submit" class="boxed-btn3">Acessar</button>
                                     </div>
-                                    <a href="<?php echo URL_BASE . "index.php/inicio/inicio"; ?>" class="boxed-btn3">Acessar</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 
         <!-- JS here -->

@@ -14,12 +14,14 @@ require_once 'configs/config.php';
 require_once 'libraries/database.php';
 
 $uri = $_SERVER['REQUEST_URI'];
+$uri = explode("?", $uri)[0];
+
 $tamanho = mb_strlen("/system_biblioteca/index.php/");
 $uri = substr($uri, $tamanho, mb_strlen($uri));
 $uri = explode("/", $uri);
 
 $classe = !empty($uri[0]) ? mb_strtolower($uri[0]) : "inicio";
-$metodo = isset($uri[1]) ? substr($uri[1],0, (strpos($uri[1], "?"))) : "index";
+$metodo = isset($uri[1]) ? $uri[1] : "index";
 
 $classe .= 'Controller';
 
