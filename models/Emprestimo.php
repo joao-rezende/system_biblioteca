@@ -13,15 +13,8 @@ class Emprestimo{
 
     public function __construct() {
         
-        $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
+        $this->conn = new Database();
         
-        if (mysqli_connect_errno()) {
-        
-            echo "Falha na conexao com o banco de dados (MySQL):" . mysqli_connect_error();
-        
-            exit;
-        
-        }
     }
 
     //busca geral
@@ -29,11 +22,9 @@ class Emprestimo{
        
         $sqlCliente = 'SELECT * from Emprestimo' ;
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->executar_query($sqlCliente);
         
         return $resultado;
-        
-        $this->conn->close();
 
     }
     
@@ -42,11 +33,9 @@ class Emprestimo{
        
         $sqlCliente = "SELECT * from Emprestimo WHERE cnpj='$cnpj'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->executar_query($sqlCliente);
         
         return $resultado;
-
-        $this->conn->close();
 
     }
      
@@ -55,23 +44,21 @@ class Emprestimo{
        
         $sqlCliente = "SELECT * from Emprestimo WHERE codUsuario ='$codUsuario'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->executar_query($sqlCliente);
         
         return $resultado;
 
-        $this->conn->close();
 
     }
      
      public function consultarEmprPeriodo($dataEmp,$dataDev,) {
        
-        $sqlCliente = "SELECT * from Emprestimo WHERE dataEmp ='$datEmp' AND dataDev = '$dataDev'";
+        $sqlCliente = "SELECT * from Emprestimo WHERE dataEmp ='$dataEmp' AND dataDev = '$dataDev'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->executar_query($sqlCliente);
         
         return $resultado;
 
-        $this->conn->close();
 
     }
 
@@ -80,9 +67,8 @@ class Emprestimo{
 
         $sqlCliente = "DELETE * FROM Emprestimo WHERE codEmprestimo ='$codEmprestimo'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->executar_query($sqlCliente);
         
-        $this->conn->close();
 
     }
 
