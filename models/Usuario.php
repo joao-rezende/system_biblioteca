@@ -1,5 +1,10 @@
 <?php
+include_once("Mediator.php");
+
 class Usuario{
+
+    
+    private $codUsuario;
 
     //conexão
     private $conn;
@@ -98,6 +103,14 @@ class Usuario{
 
     }
 
+    public function solicitarEmprestimo($codUsuario, $codLivro, $dataEmp, $dataDev){
+        $mediator = New Mediator();
+
+        $codUsuario = $this->codUsuario;
+
+        $mediator->concluirEmprestimo($codUsuario, $codLivro, $dataEmp, $dataDev);
+
+    }
 }
 
 ?>

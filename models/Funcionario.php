@@ -1,4 +1,6 @@
 <?php
+
+include_once("Mediator.php");
 class Funcionario{
 
     private $conn;
@@ -78,6 +80,16 @@ class Funcionario{
 
         $resultado = $this->conn->executar_query($sqlCliente);
 
+    }
+
+    // É feita uma solicitacao de emprestimo
+    public function solicitacaoEmpr($codUsuario, $codLivro){
+        return $this->codFunc;
+    }
+
+    // realiza emprestimo
+    public function realizarEmp($codFunc){
+        return true;
     }
 
 }

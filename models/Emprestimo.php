@@ -1,4 +1,6 @@
 <?php
+
+include_once("Mediator.php");
 class Emprestimo{
 
     
@@ -9,6 +11,7 @@ class Emprestimo{
     private $dataDev;
     private $codUsuario;
     private $codFuncResp;
+    private $finalizado;
     
 
     public function __construct() {
@@ -31,14 +34,14 @@ class Emprestimo{
     //busca pelo cod
     public function consultarEmprestimo($codEmprestimo) {
        
-        $sqlCliente = "SELECT * from Emprestimo WHERE cnpj='$cnpj'";
+        $sqlCliente = "SELECT * from Emprestimo WHERE codEmprestimo='$codEmprestimo'";
 
         $resultado = $this->conn->executar_query($sqlCliente);
         
         return $resultado;
 
     }
-     
+    
      //consulta pelo usuario
     public function consultarEmprUsuario($codUsuario) {
        
@@ -50,7 +53,8 @@ class Emprestimo{
 
 
     }
-     
+
+    
      public function consultarEmprPeriodo($dataEmp,$dataDev,) {
        
         $sqlCliente = "SELECT * from Emprestimo WHERE dataEmp ='$dataEmp' AND dataDev = '$dataDev'";
@@ -70,6 +74,13 @@ class Emprestimo{
         $resultado = $this->conn->executar_query($sqlCliente);
         
 
+    }
+
+    // finaliza um emprestimo
+    public function finalizarEmprestimo($codUsuario, $codFunc, $dataEmp, $dataDev){
+        $sql = "INSERT INTO Emprestimo VALUES($dataEmp, $dataDev, $codUsuario, $codFunc, 0)";
+
+        $resultado = $this->conn->executar_query($sql);
     }
 
    
