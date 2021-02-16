@@ -18,8 +18,8 @@
         public function deletar($codLivro, $codEmp){
             $sql = "DELETE FROM LivroEmp WHERE codLivro = $codLivro AND codEmprestimo = $codEmp";
 
-            $this->conn->executar_query($sql);                return true;
-            
+            $this->conn->executar_query($sql);                
+            return true;
         }
 
     }

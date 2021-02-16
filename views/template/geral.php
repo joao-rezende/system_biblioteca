@@ -53,16 +53,36 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="<?php echo SITE_URL . "inicio/inicio"; ?>">Home</a></li>
-                                        <li><a href="about.html">Empréstimos</a></li>
                                         <li><a href="#">Cadastros</a>
                                             <ul class="submenu">
-                                                    <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
-                                                    <li><a href="<?php echo SITE_URL . "livro"; ?>">Livros</a></li>
-                                                    <li><a href="elements.html">Usuários</a></li>
-                                                    <li><a href="property.html">Funcionários</a></li>
+                                                <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
+                                                <li><a href="<?php echo SITE_URL . "livro"; ?>">Livros</a></li>
+                                                <li><a href="<?php echo SITE_URL . "usuario"; ?>">Usuários</a></li>
+                                                <li><a href="<?php echo SITE_URL . "funcionario"; ?>">Funcionários</a></li>
                                             </ul>
                                         </li>
-                                        <li class="pull-right">
+                                        <li class="emprestimo pull-right">
+                                            <a id="novo-emprestimo" href="#">
+                                                <span class="badge badge-danger">1</span>
+                                                <div class="circulo">
+                                                    <span class="fa fa-book">
+                                                </div>
+                                            </a>
+
+                                            <ul class="submenu">
+                                                <li>
+                                                    <div class="conteudo-submenu">
+                                                        <span class="titulo">Quarta Capa: O livro sobre livros</span>
+                                                        <span class="btn-excluir fa fa-trash text-dangr"></span>
+                                                        <div class="miniatura-capa" style="background-image: url(<?php echo URL_BASE . "assets/img/capa.jpg"; ?>);" alt=""></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-laranja btn-block">Finalizar</button>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="usuario pull-right">
                                             <a id="editar-usuario" href="#">
                                                 <div class="circulo">
                                                     <span class="fa fa-user">
@@ -70,8 +90,9 @@
                                             </a>
 
                                             <ul class="submenu">
-                                                <li><a href="facilites.html">Meu Dados</a></li>
-                                                <li><a href="elements.html">Sair</a></li>
+                                                <li><a href="<?php echo SITE_URL . "usuario/editar?id=1"; ?>">Meu Dados</a></li>
+                                                <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Meus empréstimos</a></li>
+                                                <li><a href="<?php echo SITE_URL; ?>">Sair</a></li>
                                             </ul>
                                         </li>
                                     </ul>

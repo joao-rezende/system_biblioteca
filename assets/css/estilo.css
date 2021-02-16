@@ -137,7 +137,7 @@
     line-height: 51px;
 }
 
-#editar-usuario .circulo {
+.circulo {
     background-color: #ffffff;
     border-radius: 50%;
     padding: 8px 12px;
@@ -145,6 +145,9 @@
     color:#212529;
     display: inline-flex;
 }
+
+.header-area .main-header-area .main-menu ul li.usuario {
+    margin-right: 15px;}
 
 .header-area .main-header-area .main-menu ul li.pull-right .submenu {
     right: 0;
@@ -278,4 +281,51 @@
     .box-login {
         padding: 50px 25px 70px;
     }
+}
+
+.header-area .main-header-area .main-menu ul li.emprestimo .submenu {
+    width: 330px;
+}
+
+.header-area .main-header-area .main-menu .emprestimo .submenu li {
+    margin: 0;
+    padding: 10px 20px;
+    position: relative;
+    height: 120px;
+}
+
+.emprestimo .submenu .btn-excluir {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    font-size: 20px;
+}
+
+.emprestimo .submenu .titulo {
+    float: left;
+    width: 60%;
+}
+
+.emprestimo .submenu .miniatura-capa {
+    float: left;
+    width: 40%;
+    height: 100px;
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#novo-emprestimo {
+    position: relative;
+}
+
+#novo-emprestimo .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+}
+
+.btn-laranja {
+    background-color: #e66543;
+    color: #fff;
 }

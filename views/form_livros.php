@@ -52,6 +52,12 @@
                 </select>
             </div>
         </div>
+        <div class="form-group row">
+            <label for="capa" class="col-sm-2 col-form-label">Capa:</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="capa" name="capa">
+            </div>
+        </div>
         <hr>
         <div class="form-group row">
             <div class="col-6">
