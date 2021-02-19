@@ -70,7 +70,7 @@
                                             </a>
 
                                             <ul class="submenu">
-                                                <li>
+                                                <li class="livros-reservados">
                                                     <div class="conteudo-submenu">
                                                         <span class="titulo">Quarta Capa: O livro sobre livros</span>
                                                         <span class="btn-excluir fa fa-trash text-dangr"></span>
@@ -90,7 +90,7 @@
                                             </a>
 
                                             <ul class="submenu">
-                                                <li><a href="<?php echo SITE_URL . "usuario/editar?id=1"; ?>">Meu Dados</a></li>
+                                                <li><a href="<?php echo SITE_URL . "usuario/editar?id=1"; ?>">Meus Dados</a></li>
                                                 <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Meus empréstimos</a></li>
                                                 <li><a href="<?php echo SITE_URL; ?>">Sair</a></li>
                                             </ul>
@@ -136,6 +136,26 @@
         </div>
     </div>
 
+    <?php 
+    if(!empty($_SESSION['msgNotificacao'])) {
+        ?>
+        <div id="notificacao" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; right: 20px; top: 40px; z-index: 9999;">
+            <div class="toast-header">
+                <span class="fa fa-check-circle text-success" style="font-size: 17px;"></span>
+                <strong class="ml-1 mr-auto">Successo</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <?php echo $_SESSION['msgNotificacao']; ?>
+            </div>
+        </div>
+        <?php
+        $_SESSION['msgNotificacao'] = NULL;
+    } 
+    ?>
+        
     <!-- JS here -->
     <script src="<?php echo URL_BASE . "assets/hus/js/vendor/modernizr-3.5.0.min.js"; ?>"></script>
     <script src="<?php echo URL_BASE . "assets/hus/js/vendor/jquery-1.12.4.min.js"; ?>"></script>

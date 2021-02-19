@@ -2,15 +2,21 @@
 class Pessoa{
 
     //conexão
-    private $conn;
+    private $db;
 
     public function __construct() {
-       $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
+        $this->db = new Database();
+    }
+
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
+
+        $sql = "INSERT INTO Pessoa({$colunas}) values ({$valores})";
+
+        $ultimoId = $this->db->executar_query_ult_id($sql);
         
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            exit;
-        }
+        return $ultimoId;
     }
 
     //Lista todas as pessoas
@@ -44,20 +50,20 @@ class Pessoa{
     }
 
     //Insere uma nova Pessoa
-    public function cadastrar($nome,$cpf,$logradouro,$bairro,$cidade,$estado,$cep,$login,$senha,$dataInclusao,$dataUltAcesso) {
-        // Cria Query
-        $sqlCliente = "INSERT INTO Pessoa (nome,cpf,logradouro,bairro,cidade,estado,cep,login,senha,dataInclusao,dataUltAcesso)
-                        VALUES ('$nome','$cpf','$logradouro','$bairro','$cidade','$estado','$cep','$login','$senha','$dataInclusao','$dataUltAcesso')";
+    // public function cadastrar($nome,$cpf,$logradouro,$bairro,$cidade,$estado,$cep,$login,$senha,$dataInclusao,$dataUltAcesso) {
+    //     // Cria Query
+    //     $sqlCliente = "INSERT INTO Pessoa (nome,cpf,logradouro,bairro,cidade,estado,cep,login,senha,dataInclusao,dataUltAcesso)
+    //                     VALUES ('$nome','$cpf','$logradouro','$bairro','$cidade','$estado','$cep','$login','$senha','$dataInclusao','$dataUltAcesso')";
 
-        $resultado = $this->conn->query($sqlCliente);
+    //     $resultado = $this->conn->query($sqlCliente);
         
-        // Retorna o Objeto da Query
-        //return $resultado;
+    //     // Retorna o Objeto da Query
+    //     //return $resultado;
         
-        // Fecha a conexão
-        $this->conn->close();
+    //     // Fecha a conexão
+    //     $this->conn->close();
 
-    }
+    // }
     
     //Deleta Pessoa por cpf
     public function deletarPessoaCpf($cpf){

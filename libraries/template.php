@@ -61,6 +61,6 @@ class Template
     {
         $conteudo = $this->_render_view($view, $variaveis);
 
-        require_once $this->caminho_template;
+        include($this->caminho_template);
     }
 }

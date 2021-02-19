@@ -22,17 +22,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>111.111.111-11</td>
-                            <td>José da Silva</td>
-                            <td>jose.silva</td>
-                            <td>01/02/2018</td>
-                            <td class="col-botao">
-                                <a href="<?php echo SITE_URL . "funcionario/editar?id=1"; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                <button data-url="<?php echo SITE_URL . "funcionario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach($funcionarios as $funcionario) {
+                            ?>
+                            <tr>
+                                <td><?= $funcionario['codFunc']; ?></td>
+                                <td><?= formatar_cpf($funcionario['cpf']); ?></td>
+                                <td><?= $funcionario['nome']; ?></td>
+                                <td><?= $funcionario['login']; ?></td>
+                                <td><?= formatar_data($funcionario['dataInicio']); ?></td>
+                                <td class="col-botao">
+                                    <a href="<?php echo SITE_URL . "funcionario/editar?id=" . $funcionario['codFunc']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
+                                    <button data-url="<?php echo SITE_URL . "funcionario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </thead>
                 </table>
             </div>

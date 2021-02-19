@@ -10,6 +10,8 @@ if(!file_exists('configs/config.php')) {
 
 define("BASE_PATH", $_SERVER['DOCUMENT_ROOT'] . "system_biblioteca/");
 
+if (!session_id()) session_start();
+
 require_once 'configs/config.php';
 require_once 'libraries/database.php';
 

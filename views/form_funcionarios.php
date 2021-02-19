@@ -27,7 +27,7 @@
         <div class="form-group row">
             <label for="login" class="col-sm-2 col-form-label">Login:</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="login" name="login" placeholder="Login">
+                <input type="text" class="form-control" id="login" name="login" placeholder="Login">
             </div>
         </div>
         <div class="form-group row">

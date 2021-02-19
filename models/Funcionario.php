@@ -1,50 +1,42 @@
 <?php
 
 include_once("Mediator.php");
-class Funcionario{
+class Funcionario {
 
     private $conn;
-
-	private $codFunc; //precisa?
-    private $cpfFunc;
-    private $salario;
-	private $dataInicio;
 	
     public function __construct() {
-        
         $this->conn = new Database();
-        
     }
-
         
-    public function cadastrar($cpfFunc,$salario,$dataIni) {
-        
-        $sqlCliente = "INSERT INTO Funcionario(salario,dataInicio,funCpf) values ('$salario','$dataIni','$cpfFunc')" ;
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
-        
-        return $resultado;
+        $sql = "INSERT INTO Funcionario({$colunas}) values ({$valores})";
 
+        $ultimoId = $this->conn->executar_query_ult_id($sql);
+        
+        return $ultimoId;
     }
     
-   
     public function consultarFuncionarios() {
-        
-        $sqlCliente = 'SELECT * from Funcionario' ;
+        $sqlCliente = 'SELECT * FROM Funcionario
+            JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa' ;
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->conn->retornar_dados($sqlCliente);
         
         return $resultado;
-       
-
     }
 	
 	//busca com cod
 	public function consultarFuncionario($codFunc){
         
-        $sqlCliente = "SELECT * from Funcionario WHERE codFunc = '$codFunc'";
+        $sql = "SELECT * FROM Funcionario 
+            JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa
+            WHERE codFunc = '$codFunc'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->conn->executar_query($sql);
         
         return $resultado;
 
@@ -94,17 +86,3 @@ class Funcionario{
 
 }
 ?>
-
-<!--
-<head>
-	<title>sem título</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 1.37.1" />
-</head>
-
-<body>
-	
-</body>
-
-</html>
--->

@@ -287,7 +287,7 @@
     width: 330px;
 }
 
-.header-area .main-header-area .main-menu .emprestimo .submenu li {
+.header-area .main-header-area .main-menu .emprestimo .submenu li.livros-reservados {
     margin: 0;
     padding: 10px 20px;
     position: relative;
