@@ -15,7 +15,7 @@ class funcionarioController {
         $this->pessoa = new Pessoa();
     }
 
-    public function index() {  
+    public function index() {
         include('./helpers/formatacao.php');
 
         $dados['funcionarios'] = $this->funcionario->consultarFuncionarios();
@@ -27,44 +27,80 @@ class funcionarioController {
         $this->template->render("form_funcionarios.php");
     }
 
+    public function editar() {
+        $codFunc = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if(empty($codFunc)) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "funcionario");
+            return;
+        }
+
+        $dados['funcionario'] = $this->funcionario->consultarFuncionario($codFunc);
+        
+        if(empty($dados['funcionario'])) {
+            $_SESSION['msgNotifErro'] = "Funcionário não encontrado";
+            header("Location: " . SITE_URL . "funcionario");
+            return;
+        }
+        include('./helpers/formatacao.php');
+
+        $this->template->render("form_funcionarios.php", $dados);
+    }
+
     public function salvar() {
         $pessoa = [
-            "nome" => $_POST['nome'],
             "cpf" => preg_replace('/[^0-9]/', '', $_POST['cpf']),
+            "nome" => $_POST['nome'],
+            "login" => $_POST['login'],
+            "cep" => preg_replace('/[^0-9]/', '', $_POST['cep']),
             "logradouro" => $_POST['logradouro'],
+            "numero" => !empty($_POST['numero']) ? $_POST['numero'] : NULL,
+            "complemento" => $_POST['complemento'],
             "bairro" => $_POST['bairro'],
             "cidade" => $_POST['cidade'],
-            "estado" => $_POST['estado'],
-            "cep" => preg_replace('/[^0-9]/', '', $_POST['cep']),
-            "login" => $_POST['login'],
-            "senha" => "biblioteca1234",
-            "dataInclusao" => date("Y-m-d")
+            "estado" => $_POST['estado']
         ];
-
-        $codPessoa = $this->pessoa->cadastrar($pessoa);
 
         $funcionario = [
             "salario" => $_POST['salario'],
             "dataInicio" => $_POST['data_inicio'],
-            "codPessoa" => $codPessoa
         ];
 
-        $codFunc = $this->funcionario->cadastrar($funcionario);
+        if(!isset($_POST['cod_func'])) {
+            $pessoa ["senha"] = "biblioteca1234";
+            $pessoa["dataInclusao"] = date("Y-m-d");
 
-        $_SESSION['msgNotificacao'] = "Funcionário cadastrado com sucesso";
-        
-        header("Location: " . SITE_URL . "funcionario");
-    }
+            $codPessoa = $this->pessoa->cadastrar($pessoa);
 
-    public function editar() {
-        $id = isset($_GET['id']) ? $_GET['id'] : NULL;
+            $funcionario["codPessoa"] = $codPessoa;
 
-        if($id == NULL) {
-            header("Location: " . SITE_URL . "funcionario");
-            exit();
+            $codFunc = $this->funcionario->cadastrar($funcionario);
+
+            $_SESSION['msgNotifSuccesso'] = "Funcionário cadastrado com sucesso";
+        } else {
+            $codPessoa = $_POST['cod_pessoa'];
+            $codFunc = $_POST['cod_func'];
+
+            $pessoaAtu = $this->pessoa->atualizar($codPessoa, $pessoa);
+
+            if(!$pessoaAtu) {
+                $_SESSION['msgNotifErro'] = "Erro na atualização da Pessoa";
+                return;
+            }
+
+            $funcAtu = $this->funcionario->atualizar($codFunc, $funcionario);
+
+            if(!$funcAtu) {
+                $_SESSION['msgNotifErro'] = "Erro na atualização do funcionário";
+                return;
+            }
+
+            $_SESSION['msgNotifSuccesso'] = "Funcionário atualizado com sucesso";
         }
 
-        $this->template->render("form_funcionarios.php");
+        
+        header("Location: " . SITE_URL . "funcionario");
     }
     
 }

@@ -19,6 +19,26 @@ class Pessoa{
         return $ultimoId;
     }
 
+    public function atualizar($codPessoa, $dados) {
+        $campos = "";
+        foreach($dados as $indice => $dado) {
+            if(!empty($campos)) {
+                $campos .= ", ";
+            }
+            $campos .= "`" . $indice . "` = ";
+            if($dado === NULL) {
+                $campos .= "NULL";
+            } else {
+                $campos .= "'" . $dado . "'";
+            }
+            
+        }
+
+        $sql = "UPDATE Pessoa SET {$campos} WHERE codPessoa = " . $codPessoa;
+
+        return $this->db->executar_query($sql);
+    }
+
     //Lista todas as pessoas
     public function listar() {
         // Cria Query

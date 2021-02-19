@@ -8,10 +8,10 @@ $(document).ready(function() {
         });
     };
 
-    if($("#notificacao").length) {
+    if($(".notificacao").length) {
         setTimeout(() => {
-            $("#notificacao").fadeOut(500, function() {
-                $("#notificacao").remove();
+            $(".notificacao").fadeOut(500, function() {
+                $(".notificacao").remove();
             });
         }, 3000)
     }

@@ -19,6 +19,25 @@ class Funcionario {
         
         return $ultimoId;
     }
+
+    public function atualizar($codFunc, $dados) {
+        $campos = "";
+        foreach($dados as $indice => $dado) {
+            if(!empty($campos)) {
+                $campos .= ", ";
+            }
+            $campos .= "`" . $indice . "` = ";
+            if($dado === NULL) {
+                $campos .= "NULL";
+            } else {
+                $campos .= "'" . $dado . "'";
+            }
+        }
+
+        $sql = "UPDATE Funcionario SET {$campos} WHERE codFunc = " . $codFunc;
+
+        return $this->conn->executar_query($sql);
+    }
     
     public function consultarFuncionarios() {
         $sqlCliente = 'SELECT * FROM Funcionario
@@ -31,16 +50,13 @@ class Funcionario {
 	
 	//busca com cod
 	public function consultarFuncionario($codFunc){
-        
         $sql = "SELECT * FROM Funcionario 
             JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa
             WHERE codFunc = '$codFunc'";
 
-        $resultado = $this->conn->executar_query($sql);
+        $resultado = $this->conn->retornar_dados($sql, TRUE);
         
         return $resultado;
-
-
     }
    
 	//busca com cpf

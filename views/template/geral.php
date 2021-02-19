@@ -137,9 +137,9 @@
     </div>
 
     <?php 
-    if(!empty($_SESSION['msgNotificacao'])) {
+    if(!empty($_SESSION['msgNotifSuccesso'])) {
         ?>
-        <div id="notificacao" class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; right: 20px; top: 40px; z-index: 9999;">
+        <div class="toast fade show notificacao" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; right: 20px; top: 40px; z-index: 9999;">
             <div class="toast-header">
                 <span class="fa fa-check-circle text-success" style="font-size: 17px;"></span>
                 <strong class="ml-1 mr-auto">Successo</strong>
@@ -148,11 +148,31 @@
                 </button>
             </div>
             <div class="toast-body">
-                <?php echo $_SESSION['msgNotificacao']; ?>
+                <?php echo $_SESSION['msgNotifSuccesso']; ?>
             </div>
         </div>
         <?php
-        $_SESSION['msgNotificacao'] = NULL;
+        $_SESSION['msgNotifSuccesso'] = NULL;
+    } 
+    ?>
+
+    <?php 
+    if(!empty($_SESSION['msgNotifErro'])) {
+        ?>
+        <div class="toast fade show notificacao" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; right: 20px; top: 40px; z-index: 9999;">
+            <div class="toast-header">
+                <span class="fa fa-exclamation-triangle text-danger" style="font-size: 17px;"></span>
+                <strong class="ml-1 mr-auto">Erro</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <?php echo $_SESSION['msgNotifErro']; ?>
+            </div>
+        </div>
+        <?php
+        $_SESSION['msgNotifErro'] = NULL;
     } 
     ?>
         
