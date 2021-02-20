@@ -287,10 +287,13 @@
     width: 330px;
 }
 
-.header-area .main-header-area .main-menu .emprestimo .submenu li.livros-reservados {
+.header-area .main-header-area .main-menu .emprestimo .submenu li {
     margin: 0;
     padding: 10px 20px;
     position: relative;
+}
+
+.header-area .main-header-area .main-menu .emprestimo .submenu li.livros-reservados {
     height: 120px;
 }
 
@@ -328,4 +331,12 @@
 .btn-laranja {
     background-color: #e66543;
     color: #fff;
+}
+
+.form-control[type=file] {
+    padding: 3px .75rem;
+}
+
+.hidden {
+    display: none;
 }

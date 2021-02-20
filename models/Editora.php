@@ -1,82 +1,68 @@
 <?php
 class Editora{
 
-    //conexão
-    private $conn;
+    private $db;
 
     public function __construct() {
-        $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            exit;
-        }
+        $this->db = new Database();
     }
 
-    //Lista todos as Editoras
+    //Inserir usuário
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
+
+        $sql = "INSERT INTO Editora({$colunas}) values ({$valores})";
+
+        $ultimoId = $this->db->executar_query_ult_id($sql);
+        
+        return $ultimoId;
+    }
+
+    public function atualizar($codEditora, $dados) {
+        $campos = "";
+        foreach($dados as $indice => $dado) {
+            if(!empty($campos)) {
+                $campos .= ", ";
+            }
+            $campos .= "`" . $indice . "` = ";
+            if($dado === NULL) {
+                $campos .= "NULL";
+            } else {
+                $campos .= "'" . $dado . "'";
+            }
+        }
+
+        $sql = "UPDATE Editora SET {$campos} WHERE codEditora = " . $codEditora;
+
+        return $this->db->executar_query($sql);
+    }
+
+    //Lista todos os usuários
     public function listar() {
         // Cria Query
-        $sqlCliente = 'SELECT * from Editora' ;
+        $sql = 'SELECT * FROM Editora';
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
-    //Lista Editoras por CNPJ
-    public function listarCnpj($cnpj) {
-        // Cria Query
-        $sqlCliente = "SELECT * from Editora WHERE cnpj='$cnpj'";
 
-        $resultado = $this->conn->query($sqlCliente);
+    //Lista todos os usuários
+    public function listarCod($codEditora) {
+        // Cria Query
+        $sql = "SELECT * FROM Editora WHERE codEditora = '$codEditora'";
+
+        $resultado = $this->db->retornar_dados($sql, TRUE);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
-    }
-
-    //Inserir Editora
-    public function cadastrar($nome, $cnpj) {
-        // Cria Query
-        $sqlCliente = "INSERT INTO Editora(nome,cnpj) values ('$nome', '$cnpj')" ;
-
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Fecha a conexão
-        $this->conn->close();
-
-    }
-
-    //Deletar Editora por cnpj
-    public function deletarEditora($cnpj){
-
-        // Cria Query
-        $sqlCliente = "DELETE * FROM Editora WHERE cnpj='$cnpj'";
-
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
 
     //Deletar Editora por cod
-    public function deletarCodEditora($cod){
+    public function deletarEditoraCod($cod){
+        $sql = "DELETE FROM Editora WHERE codEditora = '$cod'";
 
-        // Cria Query
-        $sqlCliente = "DELETE * FROM Editora WHERE codEditora='$cod'";
-
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Fecha a conexão
-        $this->conn->close();
-
+        return $this->db->executar_query($sql);
     }
 
 }

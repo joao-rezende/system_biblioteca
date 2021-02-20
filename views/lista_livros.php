@@ -21,16 +21,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Título</td>
-                            <td>Editora</td>
-                            <td>20</td>
-                            <td class="col-botao">
-                                <a href="<?php echo SITE_URL . "livro/editar?id=1"; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                <button data-url="<?php echo SITE_URL . "livro/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach($livros as $livro) {
+                            ?>
+                            <tr>
+                                <td><?= $livro['codLivro']; ?></td>
+                                <td><?= $livro['titulo']; ?></td>
+                                <td><?= $livro['editora']; ?></td>
+                                <td><?= $livro['quantidade']; ?></td>
+                                <td class="col-botao">
+                                    <a href="<?php echo SITE_URL . "livro/editar?id=" . $livro['codLivro']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
+                                    <button data-url="<?php echo SITE_URL . "livro/excluir?id=" . $livro['codLivro']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </thead>
                 </table>
             </div>

@@ -1,44 +1,60 @@
 <?php
 class Livro{
 
-    //conexão
-    private $conn;
+    private $db;
 
     public function __construct() {
-        $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            exit;
-        }
+        $this->db = new Database();
     }
 
-    //Lista todos os Livros
+    //Inserir usuário
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
+
+        $sql = "INSERT INTO Livro({$colunas}) values ({$valores})";
+
+        $ultimoId = $this->db->executar_query_ult_id($sql);
+        
+        return $ultimoId;
+    }
+
+    public function atualizar($codLivro, $dados) {
+        $campos = "";
+        foreach($dados as $indice => $dado) {
+            if(!empty($campos)) {
+                $campos .= ", ";
+            }
+            $campos .= "`" . $indice . "` = ";
+            if($dado === NULL) {
+                $campos .= "NULL";
+            } else {
+                $campos .= "'" . $dado . "'";
+            }
+        }
+
+        $sql = "UPDATE Livro SET {$campos} WHERE codLivro = " . $codLivro;
+
+        return $this->db->executar_query($sql);
+    }
+
+    //Lista todos os usuários
     public function listar() {
         // Cria Query
-        $sqlCliente = 'SELECT * from Livros' ;
+        $sql = 'SELECT Livro.*, Editora.nome as editora FROM Livro JOIN Editora ON Editora.codEditora = Livro.codEdit';
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
+
     //Lista Livros por código
-    public function listarIsbn($isbn) {
-        // Cria Query
-        $sqlCliente = "SELECT * from Livros WHERE isbn='$isbn'";
+    public function listarCod($codLivro) {
+        $sql = "SELECT * from Livro WHERE codLivro = '$codLivro'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql, TRUE);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
 
     //Lista quantidade de um certo Livros 
@@ -65,19 +81,6 @@ class Livro{
         
         // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
-    }
-
-    //Inserir Livros
-    public function cadastrar($titulo, $genero, $quantidade, $isbn,$ano, $autores, $codEditora) {
-        // Cria Query
-        $sqlCliente = "INSERT INTO Livro(titulo, genero,quantidade,isbn,ano,autores,codEditora) 
-                       values ('$titulo', '$genero', '$quantidade', '$isbn','$ano', '$autores', '$codEditora')" ;
-
-        $resultado = $this->conn->query($sqlCliente);
         
         // Fecha a conexão
         $this->conn->close();

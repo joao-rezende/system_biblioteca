@@ -31,7 +31,7 @@
                                 <td><?= $usuario['login']; ?></td>
                                 <td class="col-botao">
                                     <a href="<?php echo SITE_URL . "usuario/editar?id=" . $usuario['codUsuario']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                    <button data-url="<?php echo SITE_URL . "usuario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
+                                    <button data-url="<?php echo SITE_URL . "usuario/excluir?id=" . $usuario['codUsuario']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-usuario text-danger line-1"><span class="fa fa-trash"></span></button>
                                 </td>
                             </tr>
                             <?php

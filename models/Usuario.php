@@ -64,7 +64,7 @@ class Usuario{
     }
 
     //Deletar usuário por cpf
-    public function deletarUsuarioCpf($cpf){
+    public function deletarUsuarioCpf($cpf) {
 
         // Cria Query
         $sqlCliente = "DELETE * FROM Usuario WHERE cpf='$cpf'";
@@ -77,16 +77,13 @@ class Usuario{
     }
 
     //Deletar usuário por cod
-    public function deletarUsuarioCod($cod){
-
+    public function deletarUsuarioCod($cod) {
         // Cria Query
-        $sqlCliente = "DELETE * FROM Usuario WHERE codUsuario='$cod'";
+        $sql = "DELETE FROM Usuario WHERE codUsuario = '$cod'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->executar_query($sql);
         
-        // Fecha a conexão
-        $this->conn->close();
-
+        return $resultado;
     }
 
     public function solicitarEmprestimo($codUsuario, $codLivro, $dataEmp, $dataDev){

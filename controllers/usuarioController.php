@@ -90,5 +90,27 @@ class usuarioController {
         
         header("Location: " . SITE_URL . "usuario");
     }
+
+    public function excluir() {
+        $codUsuario = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if(empty($codUsuario)) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "usuario");
+            return;
+        }
+
+        $dados['usuario'] = $this->usuario->listarCod($codUsuario);
+        
+        if(empty($dados['usuario'])) {
+            $_SESSION['msgNotifErro'] = "Usuário não encontrado";
+            header("Location: " . SITE_URL . "usuario");
+            return;
+        }
+        
+        $this->usuario->deletarUsuarioCod($codUsuario);
+        $_SESSION['msgNotifSuccesso'] = "Usuário excluído com sucesso";
+        header("Location: " . SITE_URL . "usuario");
+    }
     
 }

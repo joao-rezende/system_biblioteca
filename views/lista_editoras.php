@@ -20,15 +20,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Editora</td>
-                            <td>11.111.111/0001-11</td>
-                            <td class="col-botao">
-                                <a href="<?php echo SITE_URL . "editora/editar?id=1"; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                <button data-url="<?php echo SITE_URL . "editora/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach($editoras as $editora) {
+                            ?>
+                            <tr>
+                                <td><?= $editora['codEditora']; ?></td>
+                                <td><?= $editora['nome']; ?></td>
+                                <td><?= formatar_cnpj($editora['cnpj']); ?></td>
+                                <td class="col-botao">
+                                    <a href="<?php echo SITE_URL . "editora/editar?id=" . $editora['codEditora']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
+                                    <button data-url="<?php echo SITE_URL . "editora/excluir?id=" . $editora['codEditora']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-editora text-danger line-1"><span class="fa fa-trash"></span></button>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </thead>
                 </table>
             </div>

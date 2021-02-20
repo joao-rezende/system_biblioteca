@@ -68,4 +68,37 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".btn-excluir-usuario").on("click", function() {
+        const $btn = $(this);
+        modalConfimar("Deseja excluir o usuário?", function(excluir) {
+            if(excluir) {
+                window.location.href = $btn.data("url");
+            }
+        });
+    });
+    
+    $(".btn-excluir-editora").on("click", function() {
+        const $btn = $(this);
+        modalConfimar("Deseja excluir a editora?", function(excluir) {
+            if(excluir) {
+                window.location.href = $btn.data("url");
+            }
+        });
+    });
+    
+    $(".btn-excluir-livro").on("click", function() {
+        const $btn = $(this);
+        modalConfimar("Deseja excluir o Livro?", function(excluir) {
+            if(excluir) {
+                window.location.href = $btn.data("url");
+            }
+        });
+    });
+
+    $("#btn-alterar-capa").on("click", function() {
+        $("#capa-salva").remove();
+        $("#capa").removeClass("hidden");
+        $("#capa").attr("name", "capa");
+    });
 });
