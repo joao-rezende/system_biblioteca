@@ -53,6 +53,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="<?php echo SITE_URL . "inicio/inicio"; ?>">Home</a></li>
+                                        <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimo</a></li>
                                         <li><a href="#">Cadastros</a>
                                             <ul class="submenu">
                                                 <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
