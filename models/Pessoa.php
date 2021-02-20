@@ -93,6 +93,21 @@ class Pessoa{
     
     }
 
+    public function logar($usuario, $senha){
+        $sql = "SELECT * FROM Pessoa WHERE login = $usuario AND senha = $senha";
+
+        $resultado = $this->conn->query($sql);
+
+        try {
+            if(count($resultado) > 0){
+                return true;
+            }
+        } catch (\Throwable $th) {
+            return false;
+        }
+        return false;
+    }
+
 }
 
 ?>
