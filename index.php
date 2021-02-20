@@ -8,7 +8,7 @@ if(!file_exists('configs/config.php')) {
     exit(0);
 }
 
-define("BASE_PATH", $_SERVER['DOCUMENT_ROOT'] . "system_biblioteca/");
+define("BASE_PATH", $_SERVER['DOCUMENT_ROOT'] . "/system_biblioteca/");
 
 if (!session_id()) session_start();
 
