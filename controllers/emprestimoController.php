@@ -1,12 +1,15 @@
 <?php
 
 require_once './libraries/template.php';
+require_once './models/Livro.php';
 
 class emprestimoController {
     private $template;
+    private $livro;
 
     function __construct() {
         $this->template = new Template(BASE_PATH . "views/template/geral.php");
+        $this->livro = new Livro();
     }
 
     public function index() {
@@ -26,6 +29,40 @@ class emprestimoController {
         }
 
         $this->template->render("form_emprestimos.php");
+    }
+
+    public function adicionar_livro_reserva() {
+        $codLivro = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if($codLivro == NULL) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "inicio/inicio");
+            exit();
+        }
+
+        $livro = $this->livro->listarCod($codLivro);
+        
+        array_push($_SESSION['livros_reservados'], $livro);
+        
+        header("Location: " . SITE_URL . "inicio/inicio");
+    }
+
+    public function remover_livro_reserva() {
+        $codLivro = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if($codLivro == NULL) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "inicio/inicio");
+            exit();
+        }
+        
+        foreach($_SESSION['livros_reservados'] as $indice => $livro) {
+            if($livro["codLivro"] === $codLivro) {
+                unset($_SESSION['livros_reservados'][$indice]);
+            }
+        }
+
+        header("Location: " . SITE_URL . "inicio/inicio");
     }
     
 }

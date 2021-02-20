@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-6">
-            <h2 class="titulo m-0"><?= (!isset($usuario)) ? "Novo livro" : "Editar livro"; ?></h2>
+            <h2 class="titulo m-0"><?= (!isset($livro)) ? "Novo livro" : "Editar livro"; ?></h2>
         </div>
     </div>
     <hr>

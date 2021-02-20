@@ -101,4 +101,8 @@ $(document).ready(function() {
         $("#capa").removeClass("hidden");
         $("#capa").attr("name", "capa");
     });
+
+    $(".livros-reservados .btn-excluir").on("click", function() {
+        window.location.href = $(this).data("url");
+    });
 });

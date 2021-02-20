@@ -63,20 +63,43 @@
                                         </li>
                                         <li class="emprestimo pull-right">
                                             <a id="novo-emprestimo" href="#">
-                                                <span class="badge badge-danger">1</span>
+                                                <?php 
+                                                if(count($_SESSION['livros_reservados']) > 0)
+                                                {
+                                                    ?>
+                                                    <span class="badge badge-danger"><?= count($_SESSION['livros_reservados']); ?></span>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <div class="circulo">
                                                     <span class="fa fa-book">
                                                 </div>
                                             </a>
 
                                             <ul class="submenu">
-                                                <li class="livros-reservados">
-                                                    <div class="conteudo-submenu">
-                                                        <span class="titulo">Quarta Capa: O livro sobre livros</span>
-                                                        <span class="btn-excluir fa fa-trash text-dangr"></span>
-                                                        <div class="miniatura-capa" style="background-image: url(<?php echo URL_BASE . "assets/img/capa.jpg"; ?>);" alt=""></div>
-                                                    </div>
-                                                </li>
+                                                <?php 
+                                                foreach($_SESSION['livros_reservados'] as $livro)
+                                                {
+                                                    ?>
+                                                    <li class="livros-reservados">
+                                                        <div class="conteudo-submenu">
+                                                            <span class="titulo"><?= $livro['titulo']; ?></span>
+                                                            <span data-url="<?php echo SITE_URL . "emprestimo/remover_livro_reserva?id=" . $livro['codLivro']; ?>" class="btn-excluir fa fa-trash text-danger"></span>
+                                                            <div class="miniatura-capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "uploads/capa_padrao.png"); ?>);" alt=""></div>
+                                                        </div>
+                                                    </li>
+                                                    <?php
+                                                }
+                                                ?>
+
+                                                <?php 
+                                                if(count($_SESSION['livros_reservados']) === 0)
+                                                {
+                                                    ?>
+                                                    <li>Nenhum livro reservado</li>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <li>
                                                     <button type="button" class="btn btn-laranja btn-block">Finalizar</button>
                                                 </li>
