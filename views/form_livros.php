@@ -71,10 +71,10 @@
                 <div id="capa-salva">
                     <?php
                     $classe = "";
-                    $name = "";
+                    $name = "capa";
                     if(isset($livro) && !empty($livro['capa'])) {
                         $classe = "hidden";
-                        $name = "capa";
+                        $name = "";
                         ?>
                             <div style="height: 200px; 
                                 background-image: url('<?= $livro['capa']; ?>');
