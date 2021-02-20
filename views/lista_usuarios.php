@@ -21,16 +21,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>111.111.111-11</td>
-                            <td>José da Silva</td>
-                            <td>jose.silva</td>
-                            <td class="col-botao">
-                                <a href="<?php echo SITE_URL . "usuario/editar?id=1"; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                <button data-url="<?php echo SITE_URL . "usuario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach($usuarios as $usuario) {
+                            ?>
+                            <tr>
+                                <td><?= $usuario['codUsuario']; ?></td>
+                                <td><?= formatar_cpf($usuario['cpf']); ?></td>
+                                <td><?= $usuario['nome']; ?></td>
+                                <td><?= $usuario['login']; ?></td>
+                                <td class="col-botao">
+                                    <a href="<?php echo SITE_URL . "usuario/editar?id=" . $usuario['codUsuario']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
+                                    <button data-url="<?php echo SITE_URL . "usuario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </thead>
                 </table>
             </div>

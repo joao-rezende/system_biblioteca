@@ -3,38 +3,42 @@ include_once("Mediator.php");
 
 class Usuario{
 
-    
-    private $codUsuario;
-
     //conexão
-    private $conn;
+    private $db;
 
     public function __construct() {
-        $this->conn = new mysqli("localhost","root","cruzeiro13","biblioteca");
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            exit;
-        }
+        $this->db = new Database();
+    }
+
+    //Inserir usuário
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
+
+        $sql = "INSERT INTO Usuario({$colunas}) values ({$valores})";
+
+        $ultimoId = $this->db->executar_query_ult_id($sql);
+        
+        return $ultimoId;
     }
 
     //Lista todos os usuários
     public function listar() {
         // Cria Query
-        $sqlCliente = 'SELECT * from Usuario' ;
+        $sql = 'SELECT * FROM Usuario
+                JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa' ;
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
+
     //Lista usuários por CPF
     public function listarCpf($cpf) {
         // Cria Query
-        $sqlCliente = "SELECT * from Usuario WHERE usuCpf='$cpf'";
+        $sqlCliente = "SELECT * FROM Usuario
+                        JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa
+                        WHERE usuCpf='$cpf'";
 
         $resultado = $this->conn->query($sqlCliente);
         
@@ -49,32 +53,14 @@ class Usuario{
     //Listar usuários por código
     public function listarCod($cod) {
         // Cria Query
-        $sqlCliente = "SELECT * from Usuario WHERE codUsuario='$cod'";
+        $sql = "SELECT * FROM Usuario
+                JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa
+                WHERE codUsuario = '$cod'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql, TRUE);
         
         // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
-    }
-
-
-    //Inserir usuário
-    public function cadastrar($cpf) {
-        // Cria Query
-        $sqlCliente = "INSERT INTO Usuario(Usucpf) values ('$cpf')" ;
-
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Retorna o Objeto da Query
-        return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
 
     //Deletar usuário por cpf

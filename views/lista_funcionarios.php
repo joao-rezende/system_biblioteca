@@ -33,7 +33,7 @@
                                 <td><?= formatar_data($funcionario['dataInicio']); ?></td>
                                 <td class="col-botao">
                                     <a href="<?php echo SITE_URL . "funcionario/editar?id=" . $funcionario['codFunc']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                    <button data-url="<?php echo SITE_URL . "funcionario/adicionar"; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
+                                    <button data-url="<?php echo SITE_URL . "funcionario/excluir?id=" . $funcionario['codFunc']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-func text-danger line-1"><span class="fa fa-trash"></span></button>
                                 </td>
                             </tr>
                             <?php

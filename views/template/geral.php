@@ -136,6 +136,23 @@
         </div>
     </div>
 
+    <div id="modal-alerta" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <div class="col-6 text-left p-0 m-0">
+                        
+                    </div>
+                    <div class="col-6 text-right p-0 m-0">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php 
     if(!empty($_SESSION['msgNotifSuccesso'])) {
         ?>

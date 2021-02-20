@@ -48,6 +48,28 @@ class funcionarioController {
         $this->template->render("form_funcionarios.php", $dados);
     }
 
+    public function excluir() {
+        $codFunc = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if(empty($codFunc)) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "funcionario");
+            return;
+        }
+
+        $dados['funcionario'] = $this->funcionario->consultarFuncionario($codFunc);
+        
+        if(empty($dados['funcionario'])) {
+            $_SESSION['msgNotifErro'] = "Funcionário não encontrado";
+            header("Location: " . SITE_URL . "funcionario");
+            return;
+        }
+        
+        $dados['funcionario'] = $this->funcionario->excluirFuncionario($codFunc);
+        $_SESSION['msgNotifSuccesso'] = "Funcionário excluído com sucesso";
+        header("Location: " . SITE_URL . "funcionario");
+    }
+
     public function salvar() {
         $pessoa = [
             "cpf" => preg_replace('/[^0-9]/', '', $_POST['cpf']),

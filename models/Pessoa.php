@@ -57,16 +57,11 @@ class Pessoa{
     //Lista Pessoas por CPF
     public function listarCpf($cpf) {
         // Cria Query
-        $sqlCliente = "SELECT * from Pessoa WHERE usuCpf='$cpf'";
+        $sql = "SELECT * FROM Pessoa WHERE cpf = '$cpf'";
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->retornar_dados($sql, TRUE);
         
-        // Retorna o Objeto da Query
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
 
     //Insere uma nova Pessoa

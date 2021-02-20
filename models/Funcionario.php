@@ -40,10 +40,10 @@ class Funcionario {
     }
     
     public function consultarFuncionarios() {
-        $sqlCliente = 'SELECT * FROM Funcionario
+        $sql = 'SELECT * FROM Funcionario
             JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa' ;
 
-        $resultado = $this->conn->retornar_dados($sqlCliente);
+        $resultado = $this->conn->retornar_dados($sql);
         
         return $resultado;
     }
@@ -73,12 +73,11 @@ class Funcionario {
     
     //exclui com cod
     public function excluirFuncionario($codFunc){
-
-        $sqlCliente = "DELETE * FROM Funcionario WHERE codFunc = '$codFunc'";
+        $sqlCliente = "DELETE FROM Funcionario WHERE codFunc = '$codFunc'";
 
         $resultado = $this->conn->executar_query($sqlCliente);
-
-
+        
+        return $resultado;
     }
     
     //exclui com cpf

@@ -97,7 +97,7 @@
         <?php 
         if(!isset($funcionario)) {
             ?>
-            <small class="text-warning"><span class="fa fa-info-circle"></span> Novos usuários são criados com a senha padrão "biblioteca1234"</small>
+            <small class="text-warning"><span class="fa fa-info-circle"></span> Novos funcionários são criados com a senha padrão "biblioteca1234"</small>
             <?php
         }
         ?>
