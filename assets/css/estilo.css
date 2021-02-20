@@ -194,7 +194,7 @@
     padding: 21px 5px;
     height: 86px;
     position: relative;
-    margin-top: 35px;
+    margin-top: 35px;   
 }
 
 .inicio .unico_livro .livro_info .exemplares p {
@@ -213,6 +213,7 @@
 }
 
 .inicio .unico_livro .livro_info .descricao {
+    width: 100%;
     float: right;
     background: #fff;
     margin-left: 15px;
@@ -220,6 +221,7 @@
     border: 1px solid #f7f7f7;
     position: relative;
     margin-top: -45px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .inicio .unico_livro .livro_info .descricao span {
@@ -302,6 +304,7 @@
     left: 20px;
     bottom: 10px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .emprestimo .submenu .titulo {
