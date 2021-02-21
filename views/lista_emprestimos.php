@@ -34,7 +34,7 @@
                         foreach($usuarios as $usuario)
                         {
                             ?>
-                            <option value="<?= $usuario['codUsuario']; ?>"><?= $usuario['nome']; ?></option>
+                            <option value="<?= $usuario['codUsuario']; ?>" <?= isset($_GET['usuario']) && $_GET['usuario'] ==  $usuario['codUsuario'] ? "selected" : "" ?>><?= $usuario['nome']; ?></option>
                             <?php
                         }
                         ?>
