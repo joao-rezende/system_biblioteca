@@ -15,7 +15,7 @@
                         </div>
                         <div class="descricao">
                             <h4><?= $livro['titulo']; ?></h4>
-                            <h6><?= $livro['editora']; ?></h4>
+                            <h6 style="font-weight: normal;"><?= $livro['editora']; ?></h4>
                             <a class="read_more" href="<?php echo SITE_URL . "emprestimo/adicionar_livro_reserva?id=" . $livro['codLivro']; ?>">Reservar <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
