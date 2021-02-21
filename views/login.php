@@ -33,7 +33,7 @@
 
     <body>
 
-        <form action="<?php echo URL_BASE . "index.php/inicio/inicio"; ?>" method="POST">
+        <form action="<?php echo URL_BASE . "index.php/inicio/logar"; ?>" method="POST">
             <div class="conteudo-login">
                 <div class="div-login">
                     <div class="fundo-login">
@@ -53,6 +53,14 @@
                                                 <input class="form-control valid" name="senha" id="senha" type="password" placeholder="Senha">
                                             </div>
                                         </div>
+                                        <?php
+                                        if(isset($_SESSION["erroLogin"]) && !empty($_SESSION["erroLogin"])) {
+                                            ?>
+                                            <div class="alert alert-danger"><?= $_SESSION["erroLogin"]; ?></div>
+                                            <?php
+                                            $_SESSION["erroLogin"] = NULL;
+                                        }
+                                        ?>
                                         <button type="submit" class="boxed-btn3">Acessar</button>
                                     </div>
                                 </div>

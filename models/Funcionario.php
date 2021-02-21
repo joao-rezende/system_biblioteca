@@ -3,10 +3,10 @@
 include_once("Mediator.php");
 class Funcionario {
 
-    private $conn;
+    private $db;
 	
     public function __construct() {
-        $this->conn = new Database();
+        $this->db = new Database();
     }
         
     public function cadastrar($dados) {
@@ -15,7 +15,7 @@ class Funcionario {
 
         $sql = "INSERT INTO Funcionario({$colunas}) values ({$valores})";
 
-        $ultimoId = $this->conn->executar_query_ult_id($sql);
+        $ultimoId = $this->db->executar_query_ult_id($sql);
         
         return $ultimoId;
     }
@@ -36,14 +36,14 @@ class Funcionario {
 
         $sql = "UPDATE Funcionario SET {$campos} WHERE codFunc = " . $codFunc;
 
-        return $this->conn->executar_query($sql);
+        return $this->db->executar_query($sql);
     }
     
     public function consultarFuncionarios() {
         $sql = 'SELECT * FROM Funcionario
             JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa' ;
 
-        $resultado = $this->conn->retornar_dados($sql);
+        $resultado = $this->db->retornar_dados($sql);
         
         return $resultado;
     }
@@ -54,8 +54,18 @@ class Funcionario {
             JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa
             WHERE codFunc = '$codFunc'";
 
-        $resultado = $this->conn->retornar_dados($sql, TRUE);
+        $resultado = $this->db->retornar_dados($sql, TRUE);
         
+        return $resultado;
+    }
+
+    public function listarCodPessoa($codPessoa) {
+        $sql = "SELECT * FROM Funcionario
+                        JOIN Pessoa ON Pessoa.codPessoa = Funcionario.codPessoa
+                        WHERE Funcionario.codPessoa = '$codPessoa'";
+
+        $resultado = $this->db->retornar_dados($sql, TRUE);
+
         return $resultado;
     }
    
@@ -64,7 +74,7 @@ class Funcionario {
         
         $sqlCliente = "SELECT * from Funcionario WHERE FunCpf = '$cpfFunc'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->executar_query($sqlCliente);
         
         return $resultado;
     
@@ -75,7 +85,7 @@ class Funcionario {
     public function excluirFuncionario($codFunc){
         $sqlCliente = "DELETE FROM Funcionario WHERE codFunc = '$codFunc'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->executar_query($sqlCliente);
         
         return $resultado;
     }
@@ -85,7 +95,7 @@ class Funcionario {
 
         $sqlCliente = "DELETE * FROM Funcionario WHERE FunCpf = '$cpfFunc'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->executar_query($sqlCliente);
 
     }
 

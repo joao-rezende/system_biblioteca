@@ -10,6 +10,10 @@ class funcionarioController {
     private $pessoa;
 
     function __construct() {
+        if(!isset($_SESSION['logado']) || !$_SESSION['logado']) {
+            header("Location: " . SITE_URL . "inicio");
+        }
+        
         $this->template = new Template(BASE_PATH . "views/template/geral.php");
         $this->funcionario = new Funcionario();
         $this->pessoa = new Pessoa();
@@ -57,15 +61,16 @@ class funcionarioController {
             return;
         }
 
-        $dados['funcionario'] = $this->funcionario->consultarFuncionario($codFunc);
+        $funcionario = $this->funcionario->consultarFuncionario($codFunc);
         
-        if(empty($dados['funcionario'])) {
+        if(empty($funcionario)) {
             $_SESSION['msgNotifErro'] = "Funcionário não encontrado";
             header("Location: " . SITE_URL . "funcionario");
             return;
         }
         
-        $dados['funcionario'] = $this->funcionario->excluirFuncionario($codFunc);
+        $this->pessoa->excluir($funcionario['codPessoa']);
+        $this->funcionario->excluirFuncionario($codFunc);
         $_SESSION['msgNotifSuccesso'] = "Funcionário excluído com sucesso";
         header("Location: " . SITE_URL . "funcionario");
     }

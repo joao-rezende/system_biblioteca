@@ -8,6 +8,10 @@ class editoraController {
     private $editora;
 
     function __construct() {
+        if(!isset($_SESSION['logado']) || !$_SESSION['logado']) {
+            header("Location: " . SITE_URL . "inicio");
+        }
+
         $this->template = new Template(BASE_PATH . "views/template/geral.php");
         $this->editora = new Editora();
     }

@@ -53,15 +53,21 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="<?php echo SITE_URL . "inicio/inicio"; ?>">Home</a></li>
-                                        <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimo</a></li>
-                                        <li><a href="#">Cadastros</a>
-                                            <ul class="submenu">
-                                                <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
-                                                <li><a href="<?php echo SITE_URL . "livro"; ?>">Livros</a></li>
-                                                <li><a href="<?php echo SITE_URL . "usuario"; ?>">Usuários</a></li>
-                                                <li><a href="<?php echo SITE_URL . "funcionario"; ?>">Funcionários</a></li>
-                                            </ul>
-                                        </li>
+                                        <?php 
+                                        if(!empty($_SESSION['funcionario'])) {
+                                            ?>
+                                            <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimo</a></li>
+                                            <li><a href="#">Cadastros</a>
+                                                <ul class="submenu">
+                                                    <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
+                                                    <li><a href="<?php echo SITE_URL . "livro"; ?>">Livros</a></li>
+                                                    <li><a href="<?php echo SITE_URL . "usuario"; ?>">Usuários</a></li>
+                                                    <li><a href="<?php echo SITE_URL . "funcionario"; ?>">Funcionários</a></li>
+                                                </ul>
+                                            </li>
+                                            <?php
+                                        }
+                                        ?>
                                         <li class="emprestimo pull-right">
                                             <a id="novo-emprestimo" href="#">
                                                 <?php 
@@ -114,9 +120,16 @@
                                             </a>
 
                                             <ul class="submenu">
-                                                <li><a href="<?php echo SITE_URL . "usuario/editar?id=1"; ?>">Meus Dados</a></li>
+                                                <?php 
+                                                if(!empty($_SESSION['funcionario'])) {
+                                                    $url_meus_dados =  SITE_URL . "funcionario/editar?id=" . $_SESSION['funcionario']['codFunc'];
+                                                } else if(!empty($_SESSION['usuario'])) {
+                                                    $url_meus_dados =  SITE_URL . "usuario/editar?id=" . $_SESSION['usuario']['codUsuario'];
+                                                }
+                                                ?>
+                                                <li><a href="<?= $url_meus_dados; ?>">Meus Dados</a></li>
                                                 <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Meus empréstimos</a></li>
-                                                <li><a href="<?php echo SITE_URL; ?>">Sair</a></li>
+                                                <li><a href="<?php echo SITE_URL . "inicio/sair"; ?>">Sair</a></li>
                                             </ul>
                                         </li>
                                     </ul>

@@ -34,20 +34,14 @@ class Usuario{
     }
 
     //Lista usuários por CPF
-    public function listarCpf($cpf) {
-        // Cria Query
-        $sqlCliente = "SELECT * FROM Usuario
+    public function listarCodPessoa($codPessoa) {
+        $sql = "SELECT * FROM Usuario
                         JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa
-                        WHERE usuCpf='$cpf'";
+                        WHERE Usuario.codPessoa = $codPessoa";
 
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Retorna o Objeto da Query
+        $resultado = $this->db->retornar_dados($sql, TRUE);
+
         return $resultado;
-        
-        // Fecha a conexão
-        $this->conn->close();
-
     }
 
     //Listar usuários por código
@@ -55,7 +49,7 @@ class Usuario{
         // Cria Query
         $sql = "SELECT * FROM Usuario
                 JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa
-                WHERE codUsuario = '$cod'";
+                WHERE Usuario.codPessoa = '$cod'";
 
         $resultado = $this->db->retornar_dados($sql, TRUE);
         

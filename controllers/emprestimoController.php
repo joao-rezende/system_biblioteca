@@ -2,16 +2,21 @@
 
 require_once './libraries/template.php';
 require_once './models/Livro.php';
+require_once './models/Emprestimo.php';
 
 class emprestimoController {
     private $template;
     private $livro;
-    private $emprestimos;
+    private $emprestimo;
 
     function __construct() {
+        if(!isset($_SESSION['logado']) || !$_SESSION['logado']) {
+            header("Location: " . SITE_URL . "inicio");
+        }
+        
         $this->template = new Template(BASE_PATH . "views/template/geral.php");
         $this->livro = new Livro();
-        $this->emprestimos = new Emprestimo();
+        $this->emprestimo = new Emprestimo();
     }
 
     public function index() {
@@ -69,7 +74,7 @@ class emprestimoController {
     
     // Listar emprestimos
     public function listarEmprestimos(){
-        $dados['livros'] = $this->emprestimos->consultarEmprestimos();
+        $dados['livros'] = $this->emprestimo->consultarEmprestimos();
 
         $this->template->render("lista_emprestimos.php", $dados);
     }

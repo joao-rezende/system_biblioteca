@@ -55,7 +55,7 @@ class Emprestimo{
     }
 
     
-     public function consultarEmprPeriodo($dataEmp,$dataDev,) {
+     public function consultarEmprPeriodo($dataEmp,$dataDev) {
        
         $sqlCliente = "SELECT * from Emprestimo WHERE dataEmp ='$dataEmp' AND dataDev = '$dataDev'";
 

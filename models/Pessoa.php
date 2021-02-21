@@ -42,9 +42,9 @@ class Pessoa{
     //Lista todas as pessoas
     public function listar() {
         // Cria Query
-        $sqlCliente = 'SELECT * from Pessoa' ;
+        $sql = 'SELECT * from Pessoa' ;
 
-        $resultado = $this->conn->query($sqlCliente);
+        $resultado = $this->conn->query($sql);
         
         // Retorna o Objeto da Query
         return $resultado;
@@ -64,48 +64,19 @@ class Pessoa{
         return $resultado;
     }
 
-    //Insere uma nova Pessoa
-    // public function cadastrar($nome,$cpf,$logradouro,$bairro,$cidade,$estado,$cep,$login,$senha,$dataInclusao,$dataUltAcesso) {
-    //     // Cria Query
-    //     $sqlCliente = "INSERT INTO Pessoa (nome,cpf,logradouro,bairro,cidade,estado,cep,login,senha,dataInclusao,dataUltAcesso)
-    //                     VALUES ('$nome','$cpf','$logradouro','$bairro','$cidade','$estado','$cep','$login','$senha','$dataInclusao','$dataUltAcesso')";
-
-    //     $resultado = $this->conn->query($sqlCliente);
-        
-    //     // Retorna o Objeto da Query
-    //     //return $resultado;
-        
-    //     // Fecha a conexão
-    //     $this->conn->close();
-
-    // }
-    
     //Deleta Pessoa por cpf
-    public function deletarPessoaCpf($cpf){
+    public function excluir($codPessoa){
+        $sql = "DELETE FROM Pessoa WHERE codPessoa = '$codPessoa'";
 
-            // Cria Query
-            $sqlCliente = "DELETE * FROM Pessoa WHERE cpf='$cpf'";
-    
-            $resultado = $this->conn->query($sqlCliente);
-            
-            // Fecha a conexão
-            $this->conn->close();
-    
+        return $this->db->executar_query($sql);
     }
 
-    public function logar($usuario, $senha){
-        $sql = "SELECT * FROM Pessoa WHERE login = $usuario AND senha = $senha";
+    public function logar($login, $senha) {
+        $sql = "SELECT * FROM Pessoa WHERE login LIKE '$login' AND senha LIKE '$senha'";
 
-        $resultado = $this->conn->query($sql);
+        $resultado = $this->db->retornar_dados($sql, TRUE);
 
-        try {
-            if(count($resultado) > 0){
-                return true;
-            }
-        } catch (\Throwable $th) {
-            return false;
-        }
-        return false;
+        return $resultado;
     }
 
 }
