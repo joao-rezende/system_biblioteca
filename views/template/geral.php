@@ -99,7 +99,7 @@
                                                             <div class="conteudo-submenu">
                                                                 <span class="titulo"><?= $livro['titulo']; ?></span>
                                                                 <span data-url="<?php echo SITE_URL . "emprestimo/remover_livro_reserva?id=" . $livro['codLivro']; ?>" class="btn-excluir fa fa-trash text-danger"></span>
-                                                                <div class="miniatura-capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "uploads/capa_padrao.png"); ?>);" alt=""></div>
+                                                                <div class="miniatura-capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "assets/img/capa_padrao.png"); ?>);" alt=""></div>
                                                             </div>
                                                         </li>
                                                         <?php

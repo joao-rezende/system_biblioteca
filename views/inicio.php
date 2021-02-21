@@ -6,7 +6,7 @@
             ?>
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="unico_livro">
-                    <div class="capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "uploads/capa_padrao.png"); ?>" alt="Capa livro: <?= $livro['titulo']; ?>">
+                    <div class="capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "assets/img/capa_padrao.png"); ?>" alt="Capa livro: <?= $livro['titulo']; ?>">
                     </div>
                     <div class="livro_info d-flex">
                         <div class="exemplares">

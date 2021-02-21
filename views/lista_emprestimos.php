@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row mb-3">
         <div class="col-6">
             <h2 class="titulo m-0">Empréstimos</h2>
