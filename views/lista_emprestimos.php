@@ -100,7 +100,7 @@
                                         ?>
                                         <a href="<?php echo SITE_URL . "emprestimo/iniciar_emprestimo?id=" . $emprestimo['codEmprestimo']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-play"></span> Iniciar empréstimo</a>
                                         <?php
-                                    } else if(!empty($_SESSION['usuario']) && !$emprestimo['finalizado'] && $emprestimo['dataEmp']) {
+                                    } else if(!empty($_SESSION['usuario']) && !$emprestimo['finalizado'] && $emprestimo['dataEmp'] && $emprestimo['dataDev'] >= date("Y-m-d")) {
                                         ?>
                                         <a href="<?php echo SITE_URL . "emprestimo/renovar?id=" . $emprestimo['codEmprestimo']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-refresh"></span> Renovar</a>
                                         <?php
