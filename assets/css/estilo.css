@@ -331,8 +331,15 @@
     right: -4px;
 }
 
-.btn-laranja {
+.btn-laranja, .header-area .main-header-area .main-menu ul li .submenu li a.btn-laranja {
     background-color: #e66543;
+    color: #fff;
+    font-family: "Oswald", sans-serif;
+    font-size: 16px;
+}
+
+.btn-laranja:hover, .header-area .main-header-area .main-menu ul li .submenu li a.btn-laranja:hover {
+    background-color: #c65533;
     color: #fff;
 }
 

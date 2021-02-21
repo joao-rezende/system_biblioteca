@@ -49,7 +49,7 @@ class Usuario{
         // Cria Query
         $sql = "SELECT * FROM Usuario
                 JOIN Pessoa ON Pessoa.codPessoa = Usuario.codPessoa
-                WHERE Usuario.codPessoa = '$cod'";
+                WHERE Usuario.codUsuario = '$cod'";
 
         $resultado = $this->db->retornar_dados($sql, TRUE);
         

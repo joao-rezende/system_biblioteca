@@ -14,22 +14,52 @@
                     <thead class="">
                         <tr>
                             <th>Finalizado</th>
-                            <th>Data empréstimo</th>
+                            <th>Usuário</th>
+                            <?php
+                            if(!empty($_SESSION['funcionario'])) {
+                                ?>
+                                <th>Funcionário</th>
+                                <th>Data empréstimo</th>
+                                <?php
+                            }
+                            ?>
+                            <th>Prazo devolução</th>
                             <th>Data devolução</th>
                             <th>Livro(s)</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><span class="fa fa-check text-success"></span></td>
-                            <td>15/02/2021</td>
-                            <td>22/02/2021</td>
-                            <td>A quarta capa, A quinta capa, A terceira capa</td>
-                            <td class="col-botao">
-                                <a href="<?php echo SITE_URL . "funcionario/editar?id=1"; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-eye"></span></a>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach($emprestimos as $emprestimo) {
+                            ?>
+                            <tr>
+                                <td><span class="fa <?= $emprestimo['finalizado'] ? "fa-check text-success" : "fa-remove text-danger"; ?>"></span></td>
+                                <?php
+                                if(!empty($_SESSION['funcionario'])) {
+                                    ?>
+                                    <th><?= $emprestimo['nomeUsuario']; ?></th>
+                                    <th><?= $emprestimo['nomeFunc'] ?? "-"; ?></th>
+                                    <?php
+                                }
+                                ?>
+                                <td><?= formatar_data($emprestimo['dataEmp']); ?></td>
+                                <td><?= formatar_data($emprestimo['dataDev']); ?></td>
+                                <td><?= $emprestimo['dataDevReal'] ? formatar_data($emprestimo['dataDevReal']) : "-"; ?></td>
+                                <td><?= $emprestimo['livros']; ?></td>
+                                <td class="col-botao">
+                                    <?php
+                                    if(!empty($_SESSION['funcionario']) && !$emprestimo['finalizado']) {
+                                        ?>
+                                        <a href="<?php echo SITE_URL . "emprestimo/confirmar_devolucao?id=" . $emprestimo['codEmprestimo']; ?>" class="btn btn-sm btn-link line-1" data-toggle="tooltip" data-container="body" title="Confirmar devolução"><span class="fa fa-check"></span></a>
+                                        <?php
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
                     </thead>
                 </table>
             </div>

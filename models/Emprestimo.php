@@ -4,9 +4,9 @@ include_once("Mediator.php");
 class Emprestimo{
 
     
-    private $conn;
+    private $db;
     
-    private $codEmprestimo; //precisa?
+    private $codEmprestimo;
     private $dataEmp;
     private $dataDev;
     private $codUsuario;
@@ -15,43 +15,83 @@ class Emprestimo{
     
 
     public function __construct() {
-        
-        $this->conn = new Database();
-        
+        $this->db = new Database();
     }
 
-    //busca geral
-    public function consultarEmprestimos() {
-       
-        $sqlCliente = 'SELECT * from Emprestimo' ;
+    //Inserir usuário
+    public function cadastrar($dados) {
+        $colunas = "`" . implode(array_keys($dados), "`, `") . "`";
+        $valores = "'" . implode($dados, "', '") . "'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $sql = "INSERT INTO Emprestimo({$colunas}) values ({$valores})";
+
+        $ultimoId = $this->db->executar_query_ult_id($sql);
+        
+        return $ultimoId;
+    }
+
+    public function atualizar($codEmprestimo, $dados) {
+        $campos = "";
+        foreach($dados as $indice => $dado) {
+            if(!empty($campos)) {
+                $campos .= ", ";
+            }
+            $campos .= "`" . $indice . "` = ";
+            if($dado === NULL) {
+                $campos .= "NULL";
+            } else {
+                $campos .= "'" . $dado . "'";
+            }
+            
+        }
+
+        $sql = "UPDATE Emprestimo SET {$campos} WHERE codEmprestimo = " . $codEmprestimo;
+
+        return $this->db->executar_query($sql);
+    }
+
+    //Lista todos os usuários
+    public function listar() {
+        // Cria Query
+        $sql = 'SELECT Emprestimo.*, PessoaFuncionario.nome as nomeFunc, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
+                NATURAL JOIN Usuario
+                LEFT JOIN Pessoa as PessoaUsuario ON PessoaUsuario.codPessoa = Usuario.codPessoa 
+                LEFT JOIN Funcionario ON Funcionario.codFunc = Emprestimo.codFuncResp
+                LEFT JOIN Pessoa as PessoaFuncionario ON PessoaFuncionario.codPessoa = Funcionario.codPessoa
+                NATURAL JOIN LivroEmp
+                NATURAL JOIN Livro
+                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, Funcionario.codFunc, PessoaFuncionario.codPessoa';
+
+        $resultado = $this->db->retornar_dados($sql);
         
         return $resultado;
-
     }
     
-    //busca pelo cod
-    public function consultarEmprestimo($codEmprestimo) {
-       
-        $sqlCliente = "SELECT * from Emprestimo WHERE codEmprestimo='$codEmprestimo'";
+    public function listarCod($codEmprestimo) {
+        // Cria Query
+        $sql = "SELECT * FROM Emprestimo WHERE codEmprestimo='$codEmprestimo'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->retornar_dados($sql);
         
         return $resultado;
-
     }
-    
-     //consulta pelo usuario
-    public function consultarEmprUsuario($codUsuario) {
-       
-        $sqlCliente = "SELECT * from Emprestimo WHERE codUsuario ='$codUsuario'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+    //Lista todos os usuários
+    public function listarEmprUsuario($codUsuario) {
+        // Cria Query
+        $sql = "SELECT Emprestimo.*, PessoaFuncionario.nome as nomeFunc, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
+                NATURAL JOIN Usuario
+                LEFT JOIN Pessoa as PessoaUsuario ON PessoaUsuario.codPessoa = Usuario.codPessoa 
+                LEFT JOIN Funcionario ON Funcionario.codFunc = Emprestimo.codFuncResp
+                LEFT JOIN Pessoa as PessoaFuncionario ON PessoaFuncionario.codPessoa = Funcionario.codPessoa
+                NATURAL JOIN LivroEmp
+                NATURAL JOIN Livro
+                WHERE Emprestimo.codUsuario = $codUsuario
+                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, Funcionario.codFunc, PessoaFuncionario.codPessoa";
+
+        $resultado = $this->db->retornar_dados($sql);
         
         return $resultado;
-
-
     }
 
     
@@ -59,7 +99,7 @@ class Emprestimo{
        
         $sqlCliente = "SELECT * from Emprestimo WHERE dataEmp ='$dataEmp' AND dataDev = '$dataDev'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->executar_query($sqlCliente);
         
         return $resultado;
 
@@ -71,7 +111,7 @@ class Emprestimo{
 
         $sqlCliente = "DELETE * FROM Emprestimo WHERE codEmprestimo ='$codEmprestimo'";
 
-        $resultado = $this->conn->executar_query($sqlCliente);
+        $resultado = $this->db->executar_query($sqlCliente);
         
 
     }
@@ -80,7 +120,7 @@ class Emprestimo{
     public function finalizarEmprestimo($codUsuario, $codFunc, $dataEmp, $dataDev){
         $sql = "INSERT INTO Emprestimo VALUES($dataEmp, $dataDev, $codUsuario, $codFunc, 0)";
 
-        $resultado = $this->conn->executar_query($sql);
+        $resultado = $this->db->executar_query($sql);
     }
 
    

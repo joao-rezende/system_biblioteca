@@ -105,4 +105,6 @@ $(document).ready(function() {
     $(".livros-reservados .btn-excluir").on("click", function() {
         window.location.href = $(this).data("url");
     });
+
+    $("[data-toggle=tooltip]").tooltip();
 });

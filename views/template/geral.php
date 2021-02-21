@@ -56,7 +56,7 @@
                                         <?php 
                                         if(!empty($_SESSION['funcionario'])) {
                                             ?>
-                                            <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimo</a></li>
+                                            <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimos</a></li>
                                             <li><a href="#">Cadastros</a>
                                                 <ul class="submenu">
                                                     <li><a href="<?php echo SITE_URL . "editora"; ?>">Editoras</a></li>
@@ -68,50 +68,56 @@
                                             <?php
                                         }
                                         ?>
-                                        <li class="emprestimo pull-right">
-                                            <a id="novo-emprestimo" href="#">
-                                                <?php 
-                                                if(count($_SESSION['livros_reservados']) > 0)
-                                                {
+                                        <?php 
+                                        if(!empty($_SESSION['usuario'])) {
+                                            ?>
+                                            <li class="emprestimo pull-right">
+                                                <a id="novo-emprestimo" href="#">
+                                                    <?php 
+                                                    if(count($_SESSION['livros_reservados']) > 0)
+                                                    {
+                                                        ?>
+                                                        <span class="badge badge-danger"><?= count($_SESSION['livros_reservados']); ?></span>
+                                                        <?php
+                                                    }
                                                     ?>
-                                                    <span class="badge badge-danger"><?= count($_SESSION['livros_reservados']); ?></span>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <div class="circulo">
-                                                    <span class="fa fa-book">
-                                                </div>
-                                            </a>
+                                                    <div class="circulo">
+                                                        <span class="fa fa-book">
+                                                    </div>
+                                                </a>
 
-                                            <ul class="submenu">
-                                                <?php 
-                                                foreach($_SESSION['livros_reservados'] as $livro)
-                                                {
+                                                <ul class="submenu">
+                                                    <?php 
+                                                    foreach($_SESSION['livros_reservados'] as $livro)
+                                                    {
+                                                        ?>
+                                                        <li class="livros-reservados">
+                                                            <div class="conteudo-submenu">
+                                                                <span class="titulo"><?= $livro['titulo']; ?></span>
+                                                                <span data-url="<?php echo SITE_URL . "emprestimo/remover_livro_reserva?id=" . $livro['codLivro']; ?>" class="btn-excluir fa fa-trash text-danger"></span>
+                                                                <div class="miniatura-capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "uploads/capa_padrao.png"); ?>);" alt=""></div>
+                                                            </div>
+                                                        </li>
+                                                        <?php
+                                                    }
                                                     ?>
-                                                    <li class="livros-reservados">
-                                                        <div class="conteudo-submenu">
-                                                            <span class="titulo"><?= $livro['titulo']; ?></span>
-                                                            <span data-url="<?php echo SITE_URL . "emprestimo/remover_livro_reserva?id=" . $livro['codLivro']; ?>" class="btn-excluir fa fa-trash text-danger"></span>
-                                                            <div class="miniatura-capa" style="background-image: url(<?= !empty($livro['capa']) ? $livro['capa'] : (URL_BASE . "uploads/capa_padrao.png"); ?>);" alt=""></div>
-                                                        </div>
+
+                                                    <?php 
+                                                    if(count($_SESSION['livros_reservados']) === 0)
+                                                    {
+                                                        ?>
+                                                        <li>Nenhum livro reservado</li>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    <li>
+                                                        <a type="button" href="<?php echo SITE_URL . "emprestimo/adicionar"; ?>" class="btn btn-laranja btn-block">Finalizar</a>
                                                     </li>
-                                                    <?php
-                                                }
-                                                ?>
-
-                                                <?php 
-                                                if(count($_SESSION['livros_reservados']) === 0)
-                                                {
-                                                    ?>
-                                                    <li>Nenhum livro reservado</li>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <li>
-                                                    <button type="button" class="btn btn-laranja btn-block">Finalizar</button>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                                </ul>
+                                            </li>
+                                            <?php
+                                        }
+                                        ?>
                                         <li class="usuario pull-right">
                                             <a id="editar-usuario" href="#">
                                                 <div class="circulo">
