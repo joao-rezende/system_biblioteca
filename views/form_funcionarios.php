@@ -126,13 +126,13 @@
                 <div class="form-group row">
                     <label for="senha" class="col-sm-4 col-form-label">Senha:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="senha" name="senha" placeholder="Senha">
+                        <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="confirm-senha" class="col-sm-4 col-form-label">Confirmar senha:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="confirm-senha" name="confirm_senha" placeholder="Confirmar senha">
+                        <input type="password" class="form-control" id="confirm-senha" name="confirm_senha" placeholder="Confirmar senha">
                     </div>
                 </div>
             </div>
