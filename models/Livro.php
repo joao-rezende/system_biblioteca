@@ -41,7 +41,11 @@ class Livro{
     //Lista todos os usuários
     public function listar() {
         // Cria Query
-        $sql = 'SELECT Livro.*, Editora.nome as editora FROM Livro JOIN Editora ON Editora.codEditora = Livro.codEdit';
+        $sql = 'SELECT Livro.*, Editora.nome as editora, 
+                Livro.quantidade - (SELECT COUNT(LivroEmp.codLivro) FROM Emprestimo NATURAL JOIN LivroEmp WHERE finalizado = FALSE AND dataEmp IS NOT NULL AND LivroEmp.codLivro = Livro.codLivro) as qtdDisponivel 
+                FROM Livro 
+                JOIN Editora ON Editora.codEditora = Livro.codEdit
+                GROUP BY Livro.codLivro, Editora.codEditora';
 
         $resultado = $this->db->retornar_dados($sql);
         

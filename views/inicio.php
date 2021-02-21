@@ -10,7 +10,7 @@
                     </div>
                     <div class="livro_info d-flex">
                         <div class="exemplares">
-                            <p><span><?= $livro['quantidade']; ?></span> <br>
+                            <p><span><?= $livro['qtdDisponivel']; ?></span> <br>
                                 <small>Disponíveis</small></p>
                         </div>
                         <div class="descricao">

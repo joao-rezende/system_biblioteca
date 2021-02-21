@@ -17,6 +17,7 @@
                             <th>Título</th>
                             <th>Editora</th>
                             <th>Exemplares</th>
+                            <th>Exemplares disponiveís</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                 <td><?= $livro['titulo']; ?></td>
                                 <td><?= $livro['editora']; ?></td>
                                 <td><?= $livro['quantidade']; ?></td>
+                                <td><?= $livro['qtdDisponivel']; ?></td>
                                 <td class="col-botao">
                                     <a href="<?php echo SITE_URL . "livro/editar?id=" . $livro['codLivro']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
                                     <button data-url="<?php echo SITE_URL . "livro/excluir?id=" . $livro['codLivro']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-livro text-danger line-1"><span class="fa fa-trash"></span></button>
