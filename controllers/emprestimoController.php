@@ -4,12 +4,14 @@ require_once './libraries/template.php';
 require_once './models/Livro.php';
 require_once './models/Emprestimo.php';
 require_once './models/LivrosEmprestimo.php';
+require_once './models/Usuario.php';
 
 class emprestimoController {
     private $template;
     private $livro;
     private $emprestimo;
     private $livrosEmprestimo;
+    private $usuario;
 
     function __construct() {
         if(!isset($_SESSION['logado']) || !$_SESSION['logado']) {
@@ -20,6 +22,7 @@ class emprestimoController {
         $this->livro = new Livro();
         $this->emprestimo = new Emprestimo();
         $this->livrosEmprestimo = new LivrosEmprestimo();
+        $this->usuario = new Usuario();
     }
 
     public function index() {
@@ -28,7 +31,20 @@ class emprestimoController {
         if(!empty($_SESSION['usuario'])) {
             $dados['emprestimos'] = $this->emprestimo->listarEmprUsuario($_SESSION['usuario']['codUsuario']);
         } else {
-            $dados['emprestimos'] = $this->emprestimo->listar();
+            $filtros = [];
+            if(isset($_GET['atrasado']) && $_GET['atrasado'] === "1") {
+                $filtros["atrasado"] = true;
+            }
+            if(isset($_GET['dataDev'])) {
+                $filtros["dataDev"] = $_GET['dataDev'];
+            }
+            if(isset($_GET['usuario'])) {
+                $filtros["codUsuario"] = $_GET['usuario'];
+            }
+
+            $dados['usuarios'] = $this->usuario->listar();
+
+            $dados['emprestimos'] = $this->emprestimo->listar($filtros);
         }
         
         $this->template->render("lista_emprestimos.php", $dados);
@@ -44,8 +60,6 @@ class emprestimoController {
         }
 
         $emprestimo = [
-            "dataEmp" => date("Y-m-d"),
-            "dataDev" => date('Y-m-d', strtotime('+14 day')),
             "codUsuario" => $_SESSION['usuario']['codUsuario'],
             "finalizado" => 0
         ];
@@ -63,7 +77,7 @@ class emprestimoController {
 
         $_SESSION['livros_reservados'] = [];
 
-        $_SESSION['msgNotifSuccesso'] = "Empréstimo realizado com sucesso";
+        $_SESSION['msgNotifSuccesso'] = "Reserva de livros feita com sucesso, vá até a biblioteca para retirar seus livros";
         header("Location: " . SITE_URL . "inicio/inicio");
     }
 
@@ -100,10 +114,8 @@ class emprestimoController {
 
         header("Location: " . SITE_URL . "inicio/inicio");
     }
-    
-    public function confirmar_devolucao() {
-        $codEmprestimo = isset($_GET['id']) ? $_GET['id'] : NULL;
 
+    private function validar_emprestimo($codEmprestimo) {
         if($codEmprestimo == NULL) {
             $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
             header("Location: " . SITE_URL . "emprestimo");
@@ -116,15 +128,55 @@ class emprestimoController {
             header("Location: " . SITE_URL . "emprestimo");
         }
 
+        return $emprestimo;
+    }
+    
+    public function iniciar_emprestimo() {
+        $codEmprestimo = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        $emprestimo = $this->validar_emprestimo($codEmprestimo);
+
+        $nv_emprestimo = [
+            "codFuncResp" => $_SESSION['funcionario']['codFunc'],
+            "dataEmp" => date("Y-m-d"),
+            "dataDev" => date('Y-m-d', strtotime('+14 day'))
+        ];
+        
+        $this->emprestimo->atualizar($codEmprestimo, $nv_emprestimo);
+
+        $_SESSION['msgNotifSuccesso'] = "Empréstimo iniciado com sucesso";
+        header("Location: " . SITE_URL . "emprestimo");
+    }
+
+    public function confirmar_devolucao() {
+        $codEmprestimo = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        $emprestimo = $this->validar_emprestimo($codEmprestimo);
+
         $nv_emprestimo = [
             "finalizado" => 1,
-            "codFuncResp" => $_SESSION['funcionario']['codFunc'],
+            "codFuncFinalizado" => $_SESSION['funcionario']['codFunc'],
             "dataDevReal" => date("Y-m-d")
         ];
         
-        $emprestimo = $this->emprestimo->atualizar($codEmprestimo, $nv_emprestimo);
+        $this->emprestimo->atualizar($codEmprestimo, $nv_emprestimo);
 
-        $_SESSION['msgNotifSuccesso'] = "Empréstimo realizado com sucesso";
+        $_SESSION['msgNotifSuccesso'] = "Empréstimo finalizado com sucesso";
+        header("Location: " . SITE_URL . "emprestimo");
+    }
+
+    public function renovar() {
+        $codEmprestimo = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        $emprestimo = $this->validar_emprestimo($codEmprestimo);
+
+        $nv_emprestimo = [
+            "dataDev" => date('Y-m-d', strtotime('+14 day'))
+        ];
+        
+        $this->emprestimo->atualizar($codEmprestimo, $nv_emprestimo);
+
+        $_SESSION['msgNotifSuccesso'] = "Empréstimo renovado com sucesso";
         header("Location: " . SITE_URL . "emprestimo");
     }
 }

@@ -350,3 +350,7 @@
 .hidden {
     display: none;
 }
+
+label {
+    margin-bottom: 5px;
+}

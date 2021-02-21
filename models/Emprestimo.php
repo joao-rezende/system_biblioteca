@@ -51,16 +51,37 @@ class Emprestimo{
     }
 
     //Lista todos os usuários
-    public function listar() {
+    public function listar($filtros = []) {
+        $where = "";
+        $clausula = " WHERE ";
+
+        if(isset($filtros['atrasado']) && $filtros['atrasado']) {
+            $where .= $clausula . " finalizado = 0 AND dataDev < '" . date("Y-m-d") . "'";
+            $clausula = " AND ";
+        }
+
+        if(!empty($filtros['dataDev'])) {
+            $where .= $clausula . " dataDev = '" . $filtros['dataDev'] . "'";
+            $clausula = " AND ";
+        }
+
+        if(!empty($filtros['codUsuario'])) {
+            $where .= $clausula . " codUsuario = " . $filtros['codUsuario'];
+            $clausula = " AND ";
+        }
+
         // Cria Query
-        $sql = 'SELECT Emprestimo.*, PessoaFuncionario.nome as nomeFunc, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
+        $sql = "SELECT Emprestimo.*, PessoaFuncInicio.nome as nomeFuncInicio, PessoaFuncDev.nome as nomeFuncDev, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
                 NATURAL JOIN Usuario
                 LEFT JOIN Pessoa as PessoaUsuario ON PessoaUsuario.codPessoa = Usuario.codPessoa 
-                LEFT JOIN Funcionario ON Funcionario.codFunc = Emprestimo.codFuncResp
-                LEFT JOIN Pessoa as PessoaFuncionario ON PessoaFuncionario.codPessoa = Funcionario.codPessoa
+                LEFT JOIN Funcionario as FuncInicio ON FuncInicio.codFunc = Emprestimo.codFuncResp
+                LEFT JOIN Pessoa as PessoaFuncInicio ON PessoaFuncInicio.codPessoa = FuncInicio.codPessoa
+                LEFT JOIN Funcionario as FuncDev ON FuncDev.codFunc = Emprestimo.codFuncFinalizado
+                LEFT JOIN Pessoa as PessoaFuncDev ON PessoaFuncDev.codPessoa = FuncDev.codPessoa
                 NATURAL JOIN LivroEmp
                 NATURAL JOIN Livro
-                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, Funcionario.codFunc, PessoaFuncionario.codPessoa';
+                $where
+                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, FuncInicio.codFunc, PessoaFuncInicio.codPessoa, FuncDev.codFunc, PessoaFuncDev.codPessoa";
 
         $resultado = $this->db->retornar_dados($sql);
         
@@ -79,15 +100,17 @@ class Emprestimo{
     //Lista todos os usuários
     public function listarEmprUsuario($codUsuario) {
         // Cria Query
-        $sql = "SELECT Emprestimo.*, PessoaFuncionario.nome as nomeFunc, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
+        $sql = "SELECT Emprestimo.*, PessoaFuncInicio.nome as nomeFuncInicio, PessoaFuncDev.nome as nomeFuncDev, PessoaUsuario.nome as nomeUsuario, GROUP_CONCAT(Livro.titulo) as livros FROM Emprestimo
                 NATURAL JOIN Usuario
                 LEFT JOIN Pessoa as PessoaUsuario ON PessoaUsuario.codPessoa = Usuario.codPessoa 
-                LEFT JOIN Funcionario ON Funcionario.codFunc = Emprestimo.codFuncResp
-                LEFT JOIN Pessoa as PessoaFuncionario ON PessoaFuncionario.codPessoa = Funcionario.codPessoa
+                LEFT JOIN Funcionario as FuncInicio ON FuncInicio.codFunc = Emprestimo.codFuncResp
+                LEFT JOIN Pessoa as PessoaFuncInicio ON PessoaFuncInicio.codPessoa = FuncInicio.codPessoa
+                LEFT JOIN Funcionario as FuncDev ON FuncDev.codFunc = Emprestimo.codFuncFinalizado
+                LEFT JOIN Pessoa as PessoaFuncDev ON PessoaFuncDev.codPessoa = FuncDev.codPessoa
                 NATURAL JOIN LivroEmp
                 NATURAL JOIN Livro
                 WHERE Emprestimo.codUsuario = $codUsuario
-                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, Funcionario.codFunc, PessoaFuncionario.codPessoa";
+                GROUP BY Emprestimo.codEmprestimo, Usuario.codUsuario, PessoaUsuario.codPessoa, FuncInicio.codFunc, PessoaFuncInicio.codPessoa, FuncDev.codFunc, PessoaFuncDev.codPessoa";
 
         $resultado = $this->db->retornar_dados($sql);
         
@@ -112,8 +135,6 @@ class Emprestimo{
         $sqlCliente = "DELETE * FROM Emprestimo WHERE codEmprestimo ='$codEmprestimo'";
 
         $resultado = $this->db->executar_query($sqlCliente);
-        
-
     }
 
     // finaliza um emprestimo
@@ -122,21 +143,6 @@ class Emprestimo{
 
         $resultado = $this->db->executar_query($sql);
     }
-
    
 }
 ?>
-
-<!--
-<head>
-	<title>sem título</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 1.37.1" />
-</head>
-
-<body>
-	
-</body>
-
-</html>
--->
