@@ -33,7 +33,14 @@
                                 <td><?= formatar_data($funcionario['dataInicio']); ?></td>
                                 <td class="col-botao">
                                     <a href="<?php echo SITE_URL . "funcionario/editar?id=" . $funcionario['codFunc']; ?>" class="btn btn-sm btn-link line-1"><span class="fa fa-pencil"></span></a>
-                                    <button data-url="<?php echo SITE_URL . "funcionario/excluir?id=" . $funcionario['codFunc']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-func text-danger line-1"><span class="fa fa-trash"></span></button>
+                                    <?php
+                                    if($_SESSION['funcionario']['codFunc'] != $funcionario['codFunc'])
+                                    {
+                                        ?>
+                                        <button data-url="<?php echo SITE_URL . "funcionario/excluir?id=" . $funcionario['codFunc']; ?>" type="button" class="btn btn-sm btn-link btn-excluir-func text-danger line-1"><span class="fa fa-trash"></span></button>
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                             <?php

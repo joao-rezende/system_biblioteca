@@ -106,5 +106,11 @@ $(document).ready(function() {
         window.location.href = $(this).data("url");
     });
 
+    $(".notificacao .close").on("click", function() {
+        $(this).parents(".notificacao").fadeOut(500, function() {
+            $(".notificacao").remove();
+        })
+    });
+
     $("[data-toggle=tooltip]").tooltip();
 });

@@ -52,8 +52,12 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="<?php echo SITE_URL . "inicio/inicio"; ?>">Home</a></li>
-                                        <?php 
+                                        <?php
+                                        if($_SESSION['usuario']) {
+                                            ?>
+                                            <li><a href="<?php echo SITE_URL . "inicio/inicio"; ?>">Home</a></li>
+                                            <?php
+                                        }
                                         if(!empty($_SESSION['funcionario'])) {
                                             ?>
                                             <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Empréstimos</a></li>
@@ -134,7 +138,13 @@
                                                 }
                                                 ?>
                                                 <li><a href="<?= $url_meus_dados; ?>">Meus Dados</a></li>
-                                                <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Meus empréstimos</a></li>
+                                                <?php
+                                                if($_SESSION['usuario']) {
+                                                    ?>
+                                                    <li><a href="<?php echo SITE_URL . "emprestimo"; ?>">Meus empréstimos</a></li>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <li><a href="<?php echo SITE_URL . "inicio/sair"; ?>">Sair</a></li>
                                             </ul>
                                         </li>

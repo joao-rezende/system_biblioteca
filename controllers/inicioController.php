@@ -37,8 +37,11 @@ class inicioController {
         $_SESSION['usuario'] = $this->usuario->listarCodPessoa($pessoa['codPessoa']);
         $_SESSION['funcionario'] = $this->funcionario->listarCodPessoa($pessoa['codPessoa']);
         
-
-        header("Location: " . SITE_URL . "inicio/inicio");
+        if(!empty($_SESSION['usuario'])) {
+            header("Location: " . SITE_URL . "inicio/inicio");
+        } else {
+            header("Location: " . SITE_URL . "emprestimo");
+        }
     }
 
     public function inicio() {

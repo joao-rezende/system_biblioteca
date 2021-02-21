@@ -11,7 +11,7 @@ class usuarioController {
 
     function __construct() {
         if(!isset($_SESSION['logado']) || !$_SESSION['logado']) {
-            header("Location: " . SITE_URL . "inicio");
+            header("Location: " . SITE_URL . "inicio/inicio");
         }
         
         $this->template = new Template(BASE_PATH . "views/template/geral.php");
@@ -20,6 +20,9 @@ class usuarioController {
     }
 
     public function index() {
+        if(empty($_SESSION['funcionario'])) {
+            header("Location: " . SITE_URL . "inicio/inicio");
+        }
         include('./helpers/formatacao.php');
 
         $dados['usuarios'] = $this->usuario->listar();
@@ -28,6 +31,9 @@ class usuarioController {
     }
 
     public function adicionar() {
+        if(empty($_SESSION['funcionario'])) {
+            header("Location: " . SITE_URL . "inicio/inicio");
+        }
         $this->template->render("form_usuarios.php");
     }
 
@@ -92,10 +98,17 @@ class usuarioController {
         }
 
         
-        header("Location: " . SITE_URL . "usuario");
+        if(empty($_SESSION['funcionario'])) {
+            header("Location: " . SITE_URL . "inicio/inicio");
+        } else {
+            header("Location: " . SITE_URL . "usuario");
+        }
     }
 
     public function excluir() {
+        if(empty($_SESSION['funcionario'])) {
+            header("Location: " . SITE_URL . "inicio/inicio");
+        }
         $codUsuario = isset($_GET['id']) ? $_GET['id'] : NULL;
 
         if(empty($codUsuario)) {
