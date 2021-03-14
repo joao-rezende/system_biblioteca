@@ -31,6 +31,7 @@ class inicioController {
         if(empty($pessoa)) {
             $_SESSION['erroLogin'] = "Usuário e/ou senha inválidos";
             header("Location: " . SITE_URL . "inicio");
+            return;
         }
         
         $_SESSION['usuario'] = $this->usuario->listarCodPessoa($pessoa['codPessoa']);
@@ -39,6 +40,7 @@ class inicioController {
         if(empty($_SESSION['usuario']) && empty($_SESSION['funcionario'])) {
             $_SESSION['erroLogin'] = "Usuário e/ou senha inválidos";
             header("Location: " . SITE_URL . "inicio");
+            return;
         }
 
         $_SESSION['logado'] = TRUE;
