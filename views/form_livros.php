@@ -35,7 +35,7 @@
         <div class="form-group row">
             <label for="isbn" class="col-sm-2 col-form-label">ISBN:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN" value="<?= isset($livro) ? $livro['isbn'] : ""; ?>">
+                <input type="number" class="form-control" id="isbn" name="isbn" placeholder="ISBN" value="<?= isset($livro) ? $livro['isbn'] : ""; ?>">
             </div>
         </div>
         <div class="form-group row">
@@ -53,7 +53,7 @@
         <div class="form-group row">
             <label for="codEdit" class="col-sm-2 col-form-label">Editora:</label>
             <div class="col-sm-10">
-                <select name="codEdit" id="codEdit" class="form-control">
+                <select name="codEdit" id="codEdit" class="form-control" required>
                     <option value="">Escolha</option>
                     <?php 
                     foreach($editoras as $editora) {

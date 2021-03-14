@@ -91,17 +91,12 @@ class Livro{
 
     }
 
-    //Deletar Editora por cod
-    public function deletarLivro($codLivro){
-
+    //Deletar Livro
+    public function excluir($codLivro){
         // Cria Query
-        $sqlCliente = "DELETE * FROM Livros WHERE codLivro='$codLivro'";
+        $sql = "DELETE FROM Livro WHERE codLivro = '$codLivro'";
 
-        $resultado = $this->conn->query($sqlCliente);
-        
-        // Fecha a conexão
-        $this->conn->close();
-
+        return $this->db->executar_query($sql);
     }
 
 }

@@ -93,5 +93,27 @@ class livroController {
         
         header("Location: " . SITE_URL . "livro");
     }
+
+    public function excluir() {
+        $codLivro = isset($_GET['id']) ? $_GET['id'] : NULL;
+
+        if(empty($codLivro)) {
+            $_SESSION['msgNotifErro'] = "Nenhum código foi enviado";
+            header("Location: " . SITE_URL . "livro");
+            return;
+        }
+
+        $livro = $this->livro->listarCod($codLivro);
+        
+        if(empty($livro)) {
+            $_SESSION['msgNotifErro'] = "Funcionário não encontrado";
+            header("Location: " . SITE_URL . "livro");
+            return;
+        }
+        
+        $this->livro->excluir($codLivro);
+        $_SESSION['msgNotifSuccesso'] = "Livro excluído com sucesso";
+        header("Location: " . SITE_URL . "livro");
+    }
     
 }
