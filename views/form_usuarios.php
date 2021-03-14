@@ -3,12 +3,19 @@
         <div class="col-6">
             <h2 class="titulo m-0"><?= (!isset($usuario)) ? "Novo usuário" : "Editar usuário"; ?></h2>
         </div>
-        <div class="col-6 text-right">
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-senha">
-                <span class="fa fa-refresh"></span>
-                Alterar Senha
-            </button>
-        </div>
+        <?php
+        if(isset($usuario))
+        {
+            ?>
+            <div class="col-6 text-right">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-senha">
+                    <span class="fa fa-refresh"></span>
+                    Alterar Senha
+                </button>
+            </div>
+            <?php
+        }
+        ?>
     </div>
     <hr>
     <form method="post" action="<?php echo SITE_URL . "usuario/salvar"; ?>">
