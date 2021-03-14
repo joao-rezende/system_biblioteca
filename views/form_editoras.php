@@ -23,7 +23,7 @@
         <div class="form-group row">
             <label for="cnpj" class="col-sm-2 col-form-label">CNPJ:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ" value="<?= isset($editora) ? formatar_cnpj($editora['cnpj']) : ""; ?>">
+                <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="XX.XXX.XXX/XXXX-XX" value="<?= isset($editora) ? formatar_cnpj($editora['cnpj']) : ""; ?>" pattern="([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})">
             </div>
         </div>
         <hr>
